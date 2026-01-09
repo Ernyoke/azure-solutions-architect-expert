@@ -110,3 +110,27 @@
 - VMSS orchestration mode:
     - Flexible: used to achieve high availability (HA) at scale with identical or multiple machine types
     - Uniform: optimized for large scale stateless workloads with identical instances
+- Autoscaling (custom autoscale):
+    - Predictive autoscale: used to scale out before load demands
+    - Scale modes:
+        - Scale based on a metric (autoscaling)
+        - Scale to a specific instance type (manual scaling)
+    - Instance limits:
+        - Minimum number of instances: number of instances in case the scaling metric is bellow the lower threshold
+        - Maximum number of instances: maximum number of instances that the autoscaler can provision
+        - Default number of instances
+    - Rules - scale rules based on metrics that we want to scale our number of images
+    - Scale-In Policy - configures the order in which virtual machines are selected for deletion during a scale-in operation:
+        - Default: balance across AZs an fault domains and then delete the VM with the highest instance ID (usually the machine is that is the newest)
+        - NewestVM
+        - OldestVM
+
+## Azure Instance Metadata Services
+
+- It is a REST API accessible within a VM providing a lot of information about the machine, such as:
+    - SKU (instance size), storage, networking, scheduled events
+- This REST API is accessible only from the VM
+- With a scale set the VM gets notification about an upcoming eviction
+- This metadata service can polled every 1 minute to get enough time to close things up
+- Metadata instance can be retrieved from `http://169.254.169.254/metadata/instance` endpoint (`169.254.169.254` is non-routable IP address)
+- Scheduled events can be retrieved from `http://169.254.169.254/metadata/scheduledevents`
