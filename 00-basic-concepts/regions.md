@@ -8,3 +8,4 @@
     - Service's availability: not every service is available in all the regions
     - Availability Zones (AZ): regions can have more than one AZ (data center)
     - Pricing: there is difference between pricing for some services depending on what region they are provisioned
+    

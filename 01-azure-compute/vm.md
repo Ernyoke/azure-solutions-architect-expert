@@ -98,3 +98,15 @@
     - Can deploy multiple resources at once
     - Can be integrated with CI/CD pipelines
     - Can be source controlled
+
+## Virtual Machine Scale Set (VMSS)
+
+- It is a group of VMs sharing the same image
+- VMs are managed as a group => they can be scaled out/in according to predefined conditions => great handling for unpredictable load
+- Once a scale set is set up, the machines should not be modified (changing files, installing apps, etc.)
+- New machines will be created by the scale set based on the original image
+- For web apps, a load balancer should be put in front of the scale set
+- Pricing: scale sets are free, but we pay for the VMs the scale set deploys
+- VMSS orchestration mode:
+    - Flexible: used to achieve high availability (HA) at scale with identical or multiple machine types
+    - Uniform: optimized for large scale stateless workloads with identical instances
