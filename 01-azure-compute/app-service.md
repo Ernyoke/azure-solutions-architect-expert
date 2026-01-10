@@ -78,3 +78,46 @@
 - A slot is a fully functional app service with a dedicated URL
 - Slots are free, they do not generate additional costs
 - Traffic can be split between slots (Blue-Green deployment) => some users will be routed to the production app while other users will be routed to the slot
+
+## Deployment types
+
+- Traffic splitting enables various types of deployment such as:
+    - Basic:
+        - The latest version of the software is deployed to the App Service production slot
+        - No addition slot is being used
+        - Pros:
+            - Simple
+            - Fast
+        - Cons:
+            - Risky, system might gen unusable if the system is buggy
+    - Rolling:
+        - Instances are updated gradually in batches
+        - Only if no errors are found the deployment resumes
+        - Pros:
+            - Allow rollbacks
+        - Cons:
+            - We need to support two versions of the app simultaneously
+            - Not so easy to manage these versions
+        - Implementation using App Service:
+            - We deploy our latest version to a slot
+            - We set traffic percentage so that a small % will be routed to the latest version
+            - Gradually increaser the traffic to the new version until it reaches 100%
+            - We swap the slots
+    - Blue-Green:
+        - New version is uploaded and accessible only to testers
+        - After verification is completed, traffic is router to the new version
+        - Pros:
+            - Simple than rolling deployment
+            - Latest environment is always tested
+        - Cons:
+            - Cost, requires more instances (is not relevant for App Service, there is not additional cost for slots)
+        - Implementation with App Service:
+            - We deploy our latest version to a new slot
+            - Testers will work on the new slot using its dedicated URL
+            - After verification is complete we swap the slots
+
+## Shutting Down App Service
+
+- We cannot shut down an App Service, using the Stop button from the Overview page will stop the functionality for the App Service, but we will still be paying for it
+- With App Service, the only way to stop paying for the service is to completely delete it
+- Difference between VM and App Service: VM can be stopped, we pay only for the storage in that case; App Service can be stopped, but we will pay fully

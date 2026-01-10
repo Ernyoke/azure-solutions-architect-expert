@@ -18,3 +18,5 @@ This repository contains structured notes covering Azure services, architectural
 ### 01. Azure Compute
 - [Compute Overview](./01-azure-compute/compute.md) - Types of compute services in Azure
 - [Virtual Machines](./01-azure-compute/vm.md) - VMs, cost optimization, availability, VMSS, ARM templates
+- [App Service](./01-azure-compute/app-service.md) - Fully managed web hosting, deployment slots, tiers, auto-scaling
+- [AKS (Azure Kubernetes Service)](./01-azure-compute/aks.md) - Managed Kubernetes service, container orchestration
