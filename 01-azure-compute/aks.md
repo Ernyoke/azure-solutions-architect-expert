@@ -20,4 +20,4 @@
 - A pod can run one or more containers
 - The pod exposes a private IP address, this is how the kubernetes control-plain communicates with the pd
 - Pods are accessible to the public networks via a Kubernetes service
-- A service provides not just a public IP, it can provide load-balancing, monitoring, HA and more.
+- A service provides not just a public IP, it can provide load-balancing, monitoring, HA and more
