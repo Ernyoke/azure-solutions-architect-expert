@@ -8,3 +8,6 @@
     - App Services
     - AKS - Azure Kubernetes Service
     - Azure Functions
+
+## How to chose the right compute type?
+
