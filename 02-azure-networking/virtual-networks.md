@@ -150,9 +150,72 @@
 - Only one port is open (still a kind of a problem)
 - Cost of the jump box is only the additional VM
 
-## Bastion
+### Bastion
 
 - It is a web-based connection to the VM
 - No open port required
 - It is simple and secure
 - Cost: ~$140/month
+
+## Service Endpoints
+
+- A lot of managed services expose a public IP
+- Sometimes these resources are accessed only from resources within the VNet, e.g. databases being accessed only by backend services hosted on VMs
+- Service Endpoints solves the security risks of having public IPs exposes
+- They create a route from the VNet to the managed service. Incoming traffic from the internet can be blocked from the managed service
+- The traffic never leaves Azure backbone, although the resource still has a public IP
+- Service Endpoints are free of charge.
+- Setting up Service Endpoints:
+    - We can enable Service Endpoints on the subnet from which we want to access a resource
+    - On the managed resource we have to set the subnet as the source traffic
+- Resources that support Service Endpoints:
+    - Storage
+    - SQL Databases
+    - Synapse Analytics
+    - CosmosDB
+    - KeyVault
+    - Event Hub/Service Bus
+    - App Service
+    - Cognitive Services
+
+## Private Link
+
+- Private Link is a newer solution that solves the same problem as Service Endpoints
+- Private Link extends the managed service into a VNet => traffic never leaves the VNet, access from the internet can be blocked
+- Can be used from on-prem networks
+- It is not free of charge
+- Setting up Private Link:
+    - Configure the resource to connect to the VNet
+    - Configure private DNS: might cause a problem if we have our own DNS service
+- Resources that support Private Link:
+    - Storage
+    - SQL Databases
+    - Synapse Analytics
+    - CosmosDB
+    - KeyVault
+    - Redis
+    - AKS
+    - Search
+    - ACR
+    - App Configuration
+    - Backup
+    - Event Hub/Service Bus
+    - Event Grid
+    - App Service
+    - Monitor
+    - Relay
+    - Machine Learning
+    - Automation
+    - IOT Hub
+    - SignalR
+    - Batch
+
+## Service Endpoints vs Private Link
+
+|                     |Service Endpoint       |Private Link                 |
+|---------------------|-----------------------|-----------------------------|
+|Security             |Connects via Public IP |Connects via Private IP      |
+|Simplicity           |Very Simple            |More complex                 |
+|Price                |Free                   |Not free                     |
+|Supported Services   |Limited list           |Large list, more to be added |
+|On-prem connectivity |Quite complex          |Supported                    |
