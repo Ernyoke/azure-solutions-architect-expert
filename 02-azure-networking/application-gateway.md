@@ -8,7 +8,7 @@
     - App Services
     - Kubernetes via AKS (requires additional configuration)
 - It is similar to a Load Balancer, but it comes with additional features such as:
-    - SSL terminaiton
+    - SSL termination
     - Autoscaling
     - Zone redundancy
     - Session affinity
@@ -36,7 +36,7 @@
 
 - Application Gateway is placed in its own subnet (often in its own VNet)
 - We must make sure that the backend resources are:
-    - Accesible from the AG subnet
+    - Accessible from the AG subnet
     - Not accessible from anywhere else
 
 ## Configuring Application Gateways
