@@ -121,3 +121,33 @@
 - We cannot shut down an App Service, using the Stop button from the Overview page will stop the functionality for the App Service, but we will still be paying for it
 - With App Service, the only way to stop paying for the service is to completely delete it
 - Difference between VM and App Service: VM can be stopped, we pay only for the storage in that case; App Service can be stopped, but we will pay fully
+
+
+## App Service VNet Integration
+
+- Allows access from App Service to resources within a VNet, so that resources should not be exposed on the internet
+- VNet integration supports same-region VNets. For VNets in other regions a gateway is required
+- Service Endpoint/Private Link vs VNet integration:
+    - With SE/PL we allow connectivity from the VNet to a managed service
+    - VNet integration allows connectivity from a managed service (App Service) to a resource that is located in a VNet
+
+## App Service Access Restrictions
+
+- Similar to NSG - but applied to App Services
+- Access restrictions restrict traffoc to App Services
+- By default all inbound traffic is allowed to App Services on the relevant ports (App Service is a webapp, so this makes sense)
+- Using access restrictions inbound traffic is restricted to the allowed IPs/VNets/Service Tags
+- Main use cases for access restrictions:
+    - App Service is a backend that should be accessed from a front-ned service only
+    - App Service that sits behind a Application Gateway/Load Balancer and shouldn't be accessible directly
+    - App Service that should be opened to a specific customer only
+
+## ASE - App Service Environment
+
+- It is a special type of app service deployed directly to a dedicated VNet
+- This VNet can be configured like any other VNet (subnets, NSGs, etc.)
+- This app service environment is created on a dedicated hardware
+- ASE is expensive
+- Major use cases for ASE:
+    - Elevated security - complete isolation
+    - Very high scale requirement
