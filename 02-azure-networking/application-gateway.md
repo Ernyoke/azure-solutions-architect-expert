@@ -47,3 +47,24 @@
     - Frontend IP configurations: the public IP exposed by the gateway
     - Listeners: receivers the receive requests using specific protocols and ports
     - Rules: rules connected listeners ot backend pools
+
+## Application Gateways and AKS
+
+- There is no builtin integration with Application Gateway and AKS
+- AKS has its own kind-of gateway
+- *Application Gateway Ingress Controller (AGIC)* connects Application Gateway with an AKS cluster - not recommeded to be used
+- *Application Gateway for Containers* is the evolution of the Application Gateway Ingress Controller
+
+## Application Gateways and Function Apps
+
+- Function Apps are basically App Services
+- They can be protected by Application Gateway the same way App Services are
+- Function Apps can be configured in the backend pool for an Application Gateway
+
+## Application Gateway Affinity
+
+- Makes sure users will always be directed to the same instance (VM, App Service)
+- The affinity feature should be avoided when possible
+- Usually required for stateful apps
+- Usually a sign of bad design
+- We should always try to design stateless apps
