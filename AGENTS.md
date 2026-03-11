@@ -13,7 +13,7 @@ The repository follows a numbered directory structure representing different top
 - `00-basic-concepts/` - Foundational Azure concepts (regions, resource groups, cost, SLA, storage)
 - `01-azure-compute/` - Azure compute services (VMs, VM Scale Sets, App Service, Azure Functions, AKS, ARM templates)
 - `02-azure-networking/` - Azure networking services (Virtual Networks, Load Balancer, Application Gateway)
-- Additional numbered directories will follow the same pattern as the study progresses
+- `03-azure-data-services/` - Azure data services (Azure SQL, Databases on VMs)
 
 Each directory contains markdown files covering specific topics within that category.
 
@@ -68,10 +68,23 @@ Each directory contains markdown files covering specific topics within that cate
 - **Storage Accounts**: Highly available, scalable cloud storage (Blob, Queue, Table, File)
 
 ### Networking
-- **Virtual Networks (VNets)**: Isolated network environments with subnets and address spaces
+- **Virtual Networks (VNets)**: Isolated network environments with subnets, address spaces, and CIDR notation
+- **Network Security Groups (NSGs)**: 5-tuple filtering with priority-based security rules and Service Tags
+- **Service Endpoints**: Securely route traffic to managed services over Azure backbone (free)
+- **Private Link**: Extend managed services into VNet with private IP; supports on-prem connectivity (paid)
+- **Secure VM Access**: JIT Access, VPN, Jump Box, Bastion
 - **VNet Peering**: Direct connectivity between virtual networks
-- **Load Balancer**: Layer 4 network load balancing for internal and external traffic
-- **Application Gateway**: Layer 7 application load balancing with routing and SSL termination
+- **Load Balancer**: Layer 4 load balancing with 5-tuple hash; Basic vs Standard tiers; health probes (TCP/HTTP/HTTPS)
+- **Application Gateway**: Layer 7 load balancing with URL-based routing, SSL termination, session affinity, and autoscaling
+- **Web Application Firewall (WAF)**: Protection against XSS, SQL injection using OWASP ruleset; Detection and Prevention modes
+- **Application Gateway Ingress Controller (AGIC)**: AKS integration for Application Gateway
+
+### Data Services
+- **Databases on VMs**: Full control IaaS approach with prebuilt marketplace images; user manages SLA, updates, availability
+- **Azure SQL Database**: Managed single database with automatic backups, TDE encryption, IP firewall, geo-replication (SLA 99.9%-99.995%)
+- **Elastic Pool**: Multiple databases sharing compute resources on a single server; cost-effective for low-utilization workloads
+- **Managed Instance**: Near 100% on-prem SQL Server compatibility; VNet deployment; supports CLR code; no serverless tier
+- **Azure SQL Pricing**: DTU vs vCore purchase models; General Purpose, Business Critical, Hyperscale service tiers; Provisioned vs Serverless compute
 
 ## Content Guidelines When Adding/Editing
 

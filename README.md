@@ -26,3 +26,7 @@ This repository contains structured notes covering Azure services, architectural
 - [Virtual Networks (VNets)](./02-azure-networking/virtual-networks.md) - Private networks with subnets, NSGs, peering, service endpoints, and private link
 - [Load Balancer](./02-azure-networking/load-balancer.md) - Layer 4 traffic distribution via 5-tuple hash; basic and standard SKUs with health probes
 - [Application Gateway](./02-azure-networking/application-gateway.md) - Layer 7 load balancing with SSL termination, URL routing, WAF, and autoscaling
+
+### 03. Azure Data Services
+- [Databases on VMs](./03-azure-data-services/databases-on-vms.md) - IaaS approach with full control using prebuilt marketplace images; user manages SLA, updates, and security
+- [Azure SQL](./03-azure-data-services/azure-sql.md) - Managed SQL Server with three flavors (SQL Database, Elastic Pool, Managed Instance), flexible pricing via DTU/vCore models

@@ -68,3 +68,12 @@
 - Usually required for stateful apps
 - Usually a sign of bad design
 - We should always try to design stateless apps
+
+## Application Gateway and Cookies
+
+- Problem:
+    - The App Service has its own DNS name (builtin, provided by Azure)
+    - Usually we want to use our own custom domain for the Application Gateway when building an app on App Service + Application Gateway
+    - When we use a custom DNS name with App Service and our app is using cookies, the cookies will be provided for the builtin DNS => the browser will drop the cookies
+- Solution:
+    - Set custom domain for the App Service to be the same as the one set for the Application Gateway (configure it on the Custom Domains page of the App Service portal)
