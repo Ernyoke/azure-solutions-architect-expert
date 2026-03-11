@@ -19,8 +19,10 @@ This repository contains structured notes covering Azure services, architectural
 - [Compute Overview](./01-azure-compute/compute.md) - Types of compute services in Azure
 - [Virtual Machines](./01-azure-compute/vm.md) - VMs, cost optimization, availability, VMSS, ARM templates
 - [App Service](./01-azure-compute/app-service.md) - Fully managed web hosting, deployment slots, tiers, auto-scaling
-- [AKS (Azure Kubernetes Service)](./01-azure-compute/aks.md) - Managed Kubernetes service, container orchestration
-- [Azure Functions](./01-azure-compute/azure-functions.md) - Serverless compute, event-driven execution, consumption plans
+- [Azure Functions](./01-azure-compute/azure-functions.md) - Serverless computing, event-driven architecture
+- [Azure Kubernetes Service (AKS)](./01-azure-compute/aks.md) - Container orchestration, Kubernetes on Azure
 
 ### 02. Azure Networking
 - [Virtual Networks (VNets)](./02-azure-networking/virtual-networks.md) - VNet fundamentals, subnets, address spaces, peering
+- [Load Balancer](./02-azure-networking/load-balancer.md) - Network load balancing, distribution, health probes
+- [Application Gateway](./02-azure-networking/application-gateway.md) - Layer 7 load balancing, routing, SSL termination

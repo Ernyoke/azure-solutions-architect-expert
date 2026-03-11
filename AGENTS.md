@@ -11,7 +11,8 @@ This is a documentation repository containing study notes for the **Azure Soluti
 The repository follows a numbered directory structure representing different topics:
 
 - `00-basic-concepts/` - Foundational Azure concepts (regions, resource groups, cost, SLA, storage)
-- `01-azure-compute/` - Azure compute services (VMs, VM Scale Sets, ARM templates)
+- `01-azure-compute/` - Azure compute services (VMs, VM Scale Sets, App Service, Azure Functions, AKS, ARM templates)
+- `02-azure-networking/` - Azure networking services (Virtual Networks, Load Balancer, Application Gateway)
 - Additional numbered directories will follow the same pattern as the study progresses
 
 Each directory contains markdown files covering specific topics within that category.
@@ -34,6 +35,13 @@ Each directory contains markdown files covering specific topics within that cate
 
 ## Key Azure Concepts Covered
 
+### Regions and Availability
+- **Regions**: Geographic areas with multiple data centers
+- **Availability Zones**: Physically separate data centers within a region (best SLA)
+- **Fault Domain**: Physical hardware sharing common power (rack level)
+- **Update Domain**: Hardware that can be rebooted simultaneously for maintenance
+- **Availability Set**: Spread VMs across up to 3 Fault Domains and 20 Update Domains (single AZ)
+
 ### Cost Management
 - Always verify costs before provisioning resources
 - Consider cost-effective alternatives (e.g., Standard SSD vs Premium SSD)
@@ -44,11 +52,26 @@ Each directory contains markdown files covering specific topics within that cate
 - Combined SLA = Product of individual service SLAs
 - Example: 99.95% × 99.99% = 99.94% actual SLA
 
-### Availability Architecture
-- **Fault Domain**: Physical hardware sharing common power (rack level)
-- **Update Domain**: Hardware that can be rebooted simultaneously for maintenance
-- **Availability Set**: Spread VMs across up to 3 Fault Domains and 20 Update Domains (single AZ)
-- **Availability Zone**: Physically separate data centers within a region (best SLA)
+### Resource Management
+- **Resource Groups**: Logical containers for organizing resources in a subscription
+- **Naming Conventions**: Use `rg` or `RG` prefix/suffix for resource groups
+- **Management Hierarchy**: Subscriptions → Management Groups → Resource Groups → Resources
+
+### Compute Services
+- **Virtual Machines**: IaaS compute with various sizes and OS options
+- **VM Scale Sets**: Auto-scaling groups for VMs
+- **App Service**: Fully managed web hosting with deployment slots and auto-scaling
+- **Azure Functions**: Serverless compute for event-driven workloads
+- **AKS**: Managed Kubernetes container orchestration
+
+### Storage
+- **Storage Accounts**: Highly available, scalable cloud storage (Blob, Queue, Table, File)
+
+### Networking
+- **Virtual Networks (VNets)**: Isolated network environments with subnets and address spaces
+- **VNet Peering**: Direct connectivity between virtual networks
+- **Load Balancer**: Layer 4 network load balancing for internal and external traffic
+- **Application Gateway**: Layer 7 application load balancing with routing and SSL termination
 
 ## Content Guidelines When Adding/Editing
 
