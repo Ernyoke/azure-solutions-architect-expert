@@ -111,3 +111,9 @@
         - Serverless
         - Provisioned
     - Instance Size - number of vCores/DTUs
+
+## Which Azure SQL to Choose?
+
+- Are we migrating an on-prem SQL? -> Managed Instance
+- Do we need multiple low-utilization DBs? -> Elastic Pool
+- All other cases -> Azure SQL
