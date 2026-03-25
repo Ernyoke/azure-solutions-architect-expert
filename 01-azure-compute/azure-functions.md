@@ -68,7 +68,7 @@
 ## Hosting Plans
 
 - Hosting plans are:
-    - Consumption:
+    - Consumption (legacy):
         - We pay only for what we actually use: execution time (GB/sec) + total number of executions;
         - Consumption plan has a max limit of 1.5 GB of RAM
         - Price calculation example:
@@ -84,6 +84,19 @@
         - Downsides of the consumption plan:
             - 1.5 GB limit
             - Cold start
+    - Flex Consumption:
+        - Built on the strengths of the serverless Consumption plan, which include dynamic scaling and execution-based billing
+        - Extra features:
+            - Reduced cold start times when we ennable **always-ready** instances
+            - Support for VNets: serverless apps can run inside a VNet
+            - Per-function scaling: each function in our app scales independently based on its workload, potentially resulting in more efficient resource allocation
+            - Improved concurrency handling: better handling of concurrent executions with configurable concurrency settings per function
+            - Flexible memory configuration:
+                - Offered options:
+                    - 512 MB / 0.25 vCores
+                    - 2048 MB / 1 vCore
+                    - 4096 MB / 2 vCores
+            - Mountables file shares
     - Premium:
         - We pay for pre-warmed instances (hosts)
         - Pricing scheme:
