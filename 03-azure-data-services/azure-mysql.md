@@ -13,7 +13,7 @@
     - Private Endpoints
     - Regular and Azure AD Authentication
     - Secure communication using TLS
-    - Data that is encrypted
+    - Data is encrypted
 
 ## Backups
 
