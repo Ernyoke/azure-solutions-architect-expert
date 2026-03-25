@@ -1,4 +1,4 @@
-# AGEMTS.md
+# AGENTS.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -11,9 +11,9 @@ This is a documentation repository containing study notes for the **Azure Soluti
 The repository follows a numbered directory structure representing different topics:
 
 - `00-basic-concepts/` - Foundational Azure concepts (regions, resource groups, cost, SLA, storage)
-- `01-azure-compute/` - Azure compute services (VMs, VM Scale Sets, App Service, Azure Functions, AKS, ARM templates)
+- `01-azure-compute/` - Azure compute services (overview, VMs, VM Scale Sets, App Service, Azure Functions, AKS)
 - `02-azure-networking/` - Azure networking services (Virtual Networks, Load Balancer, Application Gateway)
-- `03-azure-data-services/` - Azure data services (Azure SQL, Databases on VMs)
+- `03-azure-data-services/` - Azure data services (Azure SQL, Databases on VMs, Azure MySQL, Azure PostgreSQL, Cosmos DB, Azure Storage)
 
 Each directory contains markdown files covering specific topics within that category.
 
@@ -58,6 +58,7 @@ Each directory contains markdown files covering specific topics within that cate
 - **Management Hierarchy**: Subscriptions → Management Groups → Resource Groups → Resources
 
 ### Compute Services
+- **Compute Overview**: 4 types of compute services (VMs, App Services, AKS, Azure Functions) with varying control and flexibility
 - **Virtual Machines**: IaaS compute with various sizes and OS options
 - **VM Scale Sets**: Auto-scaling groups for VMs
 - **App Service**: Fully managed web hosting with deployment slots and auto-scaling
@@ -85,6 +86,10 @@ Each directory contains markdown files covering specific topics within that cate
 - **Elastic Pool**: Multiple databases sharing compute resources on a single server; cost-effective for low-utilization workloads
 - **Managed Instance**: Near 100% on-prem SQL Server compatibility; VNet deployment; supports CLR code; no serverless tier
 - **Azure SQL Pricing**: DTU vs vCore purchase models; General Purpose, Business Critical, Hyperscale service tiers; Provisioned vs Serverless compute
+- **Azure MySQL**: Managed MySQL with IP firewall, Service/Private Endpoints, Azure AD auth, TLS; tiered backups (Basic, General Purpose); SLA 99.99%; Basic/General Purpose/Memory Optimized pricing tiers
+- **Azure PostgreSQL**: Managed PostgreSQL with Hyperscale deployment; IP firewall, Service/Private Endpoints, Azure AD auth; tiered backups with 7-35 day retention; SLA 99.99%
+- **Cosmos DB**: Fully managed NoSQL with <10ms latency; globally distributed; multiple APIs (SQL, Mongo, Gremlin, Table, Cassandra); 5 consistency levels (Strong, Bounded Staleness, Session, Consistent Prefix, Eventual); partition-based scaling; RU/s pricing model; up to 99.999% SLA with write replication
+- **Azure Storage**: Object store for files, documents, videos; 5 types (Blobs, Files, Queues, Tables, Disks); 6 redundancy options (LRS, ZRS, GRS, GZRS, RA-GRS, RA-GZRS); 3 access tiers (Hot, Cool, Archive) with lifecycle rules; Blob security via IP firewall, Service/Private Endpoints, SAS, Access Keys
 
 ## Content Guidelines When Adding/Editing
 
