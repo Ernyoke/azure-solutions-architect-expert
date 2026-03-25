@@ -30,3 +30,5 @@ This repository contains structured notes covering Azure services, architectural
 ### 03. Azure Data Services
 - [Databases on VMs](./03-azure-data-services/databases-on-vms.md) - IaaS approach with full control using prebuilt marketplace images; user manages SLA, updates, and security
 - [Azure SQL](./03-azure-data-services/azure-sql.md) - Managed SQL Server with three flavors (SQL Database, Elastic Pool, Managed Instance), flexible pricing via DTU/vCore models
+- [Azure MySQL](./03-azure-data-services/azure-mysql.md) - Managed MySQL with built-in security, tiered backups, and Basic/General Purpose/Memory Optimized pricing tiers
+- [Cosmos DB](./03-azure-data-services/cosmosdb.md) - Globally distributed NoSQL database with multiple APIs, five consistency levels, partition-based scaling, and RU/s pricing
