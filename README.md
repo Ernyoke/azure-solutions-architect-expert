@@ -33,4 +33,4 @@ This repository contains structured notes covering Azure services, architectural
 - [Azure MySQL](./03-azure-data-services/azure-mysql.md) - Managed MySQL with built-in security, tiered backups, and Basic/General Purpose/Memory Optimized pricing tiers
 - [Azure PostgreSQL](./03-azure-data-services/azure-postgres.md) - Managed PostgreSQL with Hyperscale deployment, tiered backups with 7-35 day retention, and 99.99% SLA
 - [Cosmos DB](./03-azure-data-services/cosmosdb.md) - Globally distributed NoSQL database with multiple APIs, five consistency levels, partition-based scaling, and RU/s pricing
-- [Azure Storage](./03-azure-data-services/azure-storage.md) - Object store with Blobs, Files, Queues, Tables, and Disks; six redundancy options (LRS through RA-GZRS); Hot, Cool, and Archive access tiers
+- [Azure Storage](./03-azure-data-services/azure-storage.md) - Object store with Blobs, Files, Queues, Tables, and Disks; six redundancy options (LRS through RA-GZRS); Hot, Cool, and Archive access tiers with lifecycle rules; soft delete, container access levels, SAS tokens, private endpoints, and Front Door/CDN integration

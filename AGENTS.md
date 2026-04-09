@@ -89,7 +89,7 @@ Each directory contains markdown files covering specific topics within that cate
 - **Azure MySQL**: Managed MySQL with IP firewall, Service/Private Endpoints, Azure AD auth, TLS; tiered backups (Basic, General Purpose); SLA 99.99%; Basic/General Purpose/Memory Optimized pricing tiers
 - **Azure PostgreSQL**: Managed PostgreSQL with Hyperscale deployment; IP firewall, Service/Private Endpoints, Azure AD auth; tiered backups with 7-35 day retention; SLA 99.99%
 - **Cosmos DB**: Fully managed NoSQL with <10ms latency; globally distributed; multiple APIs (SQL, Mongo, Gremlin, Table, Cassandra); 5 consistency levels (Strong, Bounded Staleness, Session, Consistent Prefix, Eventual); partition-based scaling; RU/s pricing model; up to 99.999% SLA with write replication
-- **Azure Storage**: Object store for files, documents, videos; 5 types (Blobs, Files, Queues, Tables, Disks); 6 redundancy options (LRS, ZRS, GRS, GZRS, RA-GRS, RA-GZRS); 3 access tiers (Hot, Cool, Archive) with lifecycle rules; Blob security via IP firewall, Service/Private Endpoints, SAS, Access Keys
+- **Azure Storage**: Object store for files, documents, videos; 5 types (Blobs, Files, Queues, Tables, Disks); 6 redundancy options (LRS, ZRS, GRS, GZRS, RA-GRS, RA-GZRS); 3 access tiers (Hot, Cool, Archive) with lifecycle rules; Blob security via IP firewall, Service/Private Endpoints, SAS, Access Keys; soft delete with configurable retention; container access levels (Private, Blob, Container); RBAC-based access and SAS tokens with expiry and IP restrictions; VNet restrictions and private endpoints for networking; region failover support; Front Door and Azure CDN integration for edge caching
 
 ## Content Guidelines When Adding/Editing
 
