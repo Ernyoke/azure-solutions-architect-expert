@@ -1,7 +1,5 @@
 # AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Repository Purpose
 
 This is a documentation repository containing study notes for the **Azure Solutions Architect Expert (AZ-305)** certification exam. The content is organized as a structured learning resource covering Azure services, concepts, and best practices.
@@ -13,7 +11,8 @@ The repository follows a numbered directory structure representing different top
 - `00-basic-concepts/` - Foundational Azure concepts (regions, resource groups, cost, SLA, storage)
 - `01-azure-compute/` - Azure compute services (overview, VMs, VM Scale Sets, App Service, Azure Functions, AKS)
 - `02-azure-networking/` - Azure networking services (Virtual Networks, Load Balancer, Application Gateway)
-- `03-azure-data-services/` - Azure data services (Azure SQL, Databases on VMs, Azure MySQL, Azure PostgreSQL, Cosmos DB, Azure Storage)
+- `03-azure-data-services/` - Azure data services (Azure SQL, Databases on VMs, Azure MySQL, Azure PostgreSQL, Cosmos DB, Azure Redis, Azure Storage)
+- `04-messaging-in-azure/` - Azure messaging services (Event Grid, Storage Queue)
 
 Each directory contains markdown files covering specific topics within that category.
 
@@ -89,7 +88,12 @@ Each directory contains markdown files covering specific topics within that cate
 - **Azure MySQL**: Managed MySQL with IP firewall, Service/Private Endpoints, Azure AD auth, TLS; tiered backups (Basic, General Purpose); SLA 99.99%; Basic/General Purpose/Memory Optimized pricing tiers
 - **Azure PostgreSQL**: Managed PostgreSQL with Hyperscale deployment; IP firewall, Service/Private Endpoints, Azure AD auth; tiered backups with 7-35 day retention; SLA 99.99%
 - **Cosmos DB**: Fully managed NoSQL with <10ms latency; globally distributed; multiple APIs (SQL, Mongo, Gremlin, Table, Cassandra); 5 consistency levels (Strong, Bounded Staleness, Session, Consistent Prefix, Eventual); partition-based scaling; RU/s pricing model; up to 99.999% SLA with write replication
+- **Azure Redis**: Managed in-memory distributed cache; fully compatible with OSS Redis and Enterprise Redis; IP firewall, Service/Private Endpoints, TLS; 5 tiers (Basic with no SLA, Standard up to 99.9%, Premium up to 99.95%, Enterprise up to 99.99%, Enterprise Flash up to 99.99%); pricing based on tier and instance memory; reservation options available
 - **Azure Storage**: Object store for files, documents, videos; 5 types (Blobs, Files, Queues, Tables, Disks); 6 redundancy options (LRS, ZRS, GRS, GZRS, RA-GRS, RA-GZRS); 3 access tiers (Hot, Cool, Archive) with lifecycle rules; Blob security via IP firewall, Service/Private Endpoints, SAS, Access Keys; soft delete with configurable retention; container access levels (Private, Blob, Container); RBAC-based access and SAS tokens with expiry and IP restrictions; VNet restrictions and private endpoints for networking; region failover support; Front Door and Azure CDN integration for edge caching
+
+### Messaging
+- **Event Grid**: Event-based pub/sub architecture; no queues, no ordering; strong Azure service integration; built-in HA with 99.99% SLA; max event size 1 MB; up to 10M events/sec, 5000 events/sec/topic; subsecond latency at 99th percentile; pricing based on operations (first 100K free/month)
+- **Storage Queue**: Simple queue within Azure Storage Account; no special pricing; same availability as blob storage; 64 KB max message size; 20K messages/sec/account, 2K messages/sec/queue; client libraries available for multiple languages
 
 ## Content Guidelines When Adding/Editing
 

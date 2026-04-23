@@ -33,4 +33,9 @@ This repository contains structured notes covering Azure services, architectural
 - [Azure MySQL](./03-azure-data-services/azure-mysql.md) - Managed MySQL with built-in security, tiered backups, and Basic/General Purpose/Memory Optimized pricing tiers
 - [Azure PostgreSQL](./03-azure-data-services/azure-postgres.md) - Managed PostgreSQL with Hyperscale deployment, tiered backups with 7-35 day retention, and 99.99% SLA
 - [Cosmos DB](./03-azure-data-services/cosmosdb.md) - Globally distributed NoSQL database with multiple APIs, five consistency levels, partition-based scaling, and RU/s pricing
+- [Azure Redis](./03-azure-data-services/azure-redis.md) - Managed in-memory distributed cache; fully compatible with OSS/Enterprise Redis; five tiers (Basic, Standard, Premium, Enterprise, Enterprise Flash); TLS, IP firewall, Service/Private Endpoints; up to 99.99% SLA
 - [Azure Storage](./03-azure-data-services/azure-storage.md) - Object store with Blobs, Files, Queues, Tables, and Disks; six redundancy options (LRS through RA-GZRS); Hot, Cool, and Archive access tiers with lifecycle rules; soft delete, container access levels, SAS tokens, private endpoints, and Front Door/CDN integration
+
+### 04. Messaging in Azure
+- [Event Grid](./04-messaging-in-azure/event-grid.md) - Event-based architectures with pub/sub model; no queues or ordering; up to 10M events/sec; 1 MB max event size; built-in HA with 99.99% SLA; pay per operation
+- [Storage Queue](./04-messaging-in-azure/storage-queue.md) - Simple queue implementation within Azure Storage Account; 64 KB max message size; up to 20K messages/sec per account; same availability as blob storage
