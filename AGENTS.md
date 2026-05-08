@@ -11,8 +11,9 @@ The repository follows a numbered directory structure representing different top
 - `00-basic-concepts/` - Foundational Azure concepts (regions, resource groups, cost, SLA, storage)
 - `01-azure-compute/` - Azure compute services (overview, VMs, VM Scale Sets, App Service, Azure Functions, AKS)
 - `02-azure-networking/` - Azure networking services (Virtual Networks, Load Balancer, Application Gateway)
-- `03-azure-data-services/` - Azure data services (Azure SQL, Databases on VMs, Azure MySQL, Azure PostgreSQL, Cosmos DB, Azure Redis, Azure Storage)
+- `03-azure-data-services/` - Azure data services (Azure SQL, Databases on VMs, Azure MySQL, Azure PostgreSQL, Cosmos DB, Azure Redis, Azure Storage, Event Hubs, Service Bus)
 - `04-messaging-in-azure/` - Azure messaging services (Event Grid, Storage Queue)
+- `05-identity-management/` - Identity and access management (Microsoft Entra ID)
 
 Each directory contains markdown files covering specific topics within that category.
 
@@ -94,6 +95,12 @@ Each directory contains markdown files covering specific topics within that cate
 ### Messaging
 - **Event Grid**: Event-based pub/sub architecture; no queues, no ordering; strong Azure service integration; built-in HA with 99.99% SLA; max event size 1 MB; up to 10M events/sec, 5000 events/sec/topic; subsecond latency at 99th percentile; pricing based on operations (first 100K free/month)
 - **Storage Queue**: Simple queue within Azure Storage Account; no special pricing; same availability as blob storage; 64 KB max message size; 20K messages/sec/account, 2K messages/sec/queue; client libraries available for multiple languages
+- **Event Hubs**: Big data streaming and event ingestion service (managed Kafka); millions of events/sec; components include event producers, partitions (single ordered streams, max 32 per deployment, no HA per partition), and consumer groups; AMQP for receiving; SLA 99.95% (Basic/Standard) and 99.99% (Dedicated); throughput measured in Throughput Units (TU = 1 MB/s or 1000 events/s ingress; 2 MB/s or 4096 events/s egress), prepurchased and billed hourly; pricing based on tier, ingress, and TU
+- **Service Bus**: Fully managed, durable message queueing service; supports point-to-point (Queue) and pub/sub (Topic); compatible with AMQP and JMS 2.0 (Premium only); advanced features include message sessions (FIFO), dead-letter queues, scheduled delivery, transactions, and duplicate detection; SLA 99.9% with geo-disaster recovery option; security via IP firewall, Service Endpoints, and Private Endpoints; three tiers (Basic 256 KB queues only, Standard 256 KB with topics/transactions/sessions, Premium 1 MB with Geo-DR/resource isolation/AZ support); pricing based on tier and operations
+
+### Identity Management
+- **Microsoft Entra ID** (formerly Azure Active Directory): Central identity and access management cloud service; secure, robust, intelligent; manages access to thousands of apps including the Azure Portal
+- **Tenant** (Directory): Specific instance of Entra ID containing accounts and groups; exists beside subscriptions (not part of the subscription hierarchy); a new tenant is automatically created for new subscriptions; a single tenant can be assigned to multiple subscriptions
 
 ## Content Guidelines When Adding/Editing
 

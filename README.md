@@ -39,3 +39,8 @@ This repository contains structured notes covering Azure services, architectural
 ### 04. Messaging in Azure
 - [Event Grid](./04-messaging-in-azure/event-grid.md) - Event-based architectures with pub/sub model; no queues or ordering; up to 10M events/sec; 1 MB max event size; built-in HA with 99.99% SLA; pay per operation
 - [Storage Queue](./04-messaging-in-azure/storage-queue.md) - Simple queue implementation within Azure Storage Account; 64 KB max message size; up to 20K messages/sec per account; same availability as blob storage
+- [Event Hubs](./03-azure-data-services/event-hubs.md) - Big data streaming and event ingestion service (managed Kafka); millions of events/sec; partitions for ordering; consumer groups; up to 32 partitions per deployment; 99.95%-99.99% SLA; throughput units (TU) based pricing
+- [Service Bus](./03-azure-data-services/service-bus.md) - Fully managed, durable message queueing service; supports point-to-point (Queue) and pub/sub (Topic); AMQP and JMS 2.0; advanced features (sessions/FIFO, dead-letter, scheduled delivery, transactions, duplicate detection); Basic/Standard/Premium tiers (256 KB to 1 MB messages); 99.9% SLA with geo-DR option
+
+### 05. Identity Management
+- [Microsoft Entra ID](./05-identity-management/entra-id.md) - Central identity and access management cloud service (formerly Azure AD); manages access to thousands of apps including the Azure Portal; tenants (directories) exist beside subscriptions and can be assigned to multiple subscriptions
