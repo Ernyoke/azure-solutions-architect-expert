@@ -6,6 +6,26 @@
 - We have client libraries for almost every programming languages to access Azure Storage
 - Azure Storage is durable and HA
 
+## Azure Storage Accounts
+
+- Azure Storage offers several types of storage accounts (Account Kind):
+    - Standard general purpose v1 (legacy)
+    - Standard general purpose v2
+    - BlobStorage (legacy)
+    - BlockBlobStorage
+    - FileStorage
+- Storage accounts vary with the following features:
+    - Supported Services: what can we put in a storage account?
+        - Blob, File, Queue, Table, Disk and Data Lake Gen2
+    - Performance Tiers: how fast will we read and write
+        - Standard and Premium
+    - Access Tiers: how ofter we need quick access to files
+        - Hot, Cool, Archive
+    - Replication:
+        - LRS, GRS, RA-GRS, ZRS, GZRS, RA-GZRS
+    - Deployment model:
+        - Resouce Manager, Classic
+
 ## Azure Storage Types
 
 - Types are:
@@ -54,7 +74,7 @@
         - Data is synchronously copied 3 times within the same AZ (same datacenter)
     - Zone Redundant Storage (ZRS):
         - Data is synchronously copied 3 times within the zones in the region
-        - In case there is only one Az in the region ZRS will not be available
+        - In case there is only one AZ in the region ZRS will not be available
     - Geo Redundant Storage (GRS):
         - Data is synchronously copied 3 times within the same zone, and then copied asynchronously to the paired region
         - Data in the secondary region is accessible after failover process
@@ -105,6 +125,19 @@
 - Using RA-G(Z)RS, SLA improves to 99.99% (Hot) and 99.9% (Cool)
 - Tier is set at the account level, but can be modified by blob
 - Moving between tiers can be automated by lifecycle rules
+- Account Level Tiering: any blob that does not have an explicit tier assigned infers the tier from the Storage Account access tier setting
+- Blob-level tiering: 
+    - We can upload a blob to the tier of our choice
+    - Changing tiers happens instantly with exception from moving out of archive
+- Rehydrating a Blob: when moving a blob out of archive into another tier it can take several hour => this is called "rehydrating"
+- When a blob is uploaded or moved to another tier, it is charged immediatly upon tier change:
+    - When moving from a cooler tier:
+        - The operation is billed as a write operation to the destination tier
+        - Write operation (per 10_000) and data write (per GB) charges of the destination tier apply
+    - When moving from a hotter tier:
+        - The operation is billed as a read from the source tier
+        - Read opertion (per 10_000) and data retrieval (per GB) charges of the source tier apply
+        - Early deletion charges fron any blob moved out of the cool/archive tier may apply as well
 
 ## Azure Blob Storage Pricing
 
@@ -156,8 +189,17 @@
 
 - Failover between the primary and secondary regions is automatic, but we can trigger it manually
 
+## AzCopy
+
+- AzCopy is a command-line utility that we can use to copu blobs of files to/from a storage account
+- To download data we need Storage Blob Data Reader access
+- To upload data:
+    - Storage Blob Data contributor
+    - Storage Blob Data Owner
+
 ## Front Door and CDN
 
 - We can define a CDN endpoint for our storage account
 - The purpose of a CDN is to bring the content of the storage account closer to the consumer
 - Currently storage accounts can use Front Door and Azure CDN to setup replication to the edge locations
+- Azure Front Door is a comprehensive, modern application delivery platform (CDN + WAF + Load Balancer) optimized for dynamic content, APIs, and global application security. Azure CDN is a simpler, specialized service primarily optimized for caching and delivering static content (images, videos, files)
