@@ -90,3 +90,36 @@
     2. Add code to use Azure AD as authentication engine
         - For App Service: can be configured via Azure Portal (with minimal code changes)
 - The authentication uses Oath and JWT
+
+## Azure AD B2C
+
+- It is an identity-as-a-service for our application
+- It is a business-to-customer (B2C) service
+- It enables integrating identity services in our app
+- Provides various user flows and enables custimzations for them
+- Identity services provided by Azure AD B2C:
+    - Sign up
+    - Sign in
+    - Log out
+    - Reset password
+    - etc.
+
+## Azure AD B2C vs Azure AD
+
+- Azure AD:
+    - It is an identity provider => holds users' details
+    - It is a single tenant that can be used for authentication by many apps, such as Azure Portal, Office 365, Azure apps
+- Azure AD B2C:
+    - It is an identity service => used to perfrom identity-related actions
+    - Works with various identity providers, such as Azure AD, Facebook, Google, Github, Amazon, Twitter, any OIDC
+    - Used by business apps as the identity component
+
+## Azure ADB B2C Authentication Features
+
+- Features are:
+    - MFA
+    - Conditional access
+    - Audit log
+    - Custom policies
+    - Custom pages
+- It is quite complex to set up with a lot of moving parts
