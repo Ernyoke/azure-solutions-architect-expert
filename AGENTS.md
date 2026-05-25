@@ -99,8 +99,20 @@ Each directory contains markdown files covering specific topics within that cate
 - **Service Bus**: Fully managed, durable message queueing service; supports point-to-point (Queue) and pub/sub (Topic); compatible with AMQP and JMS 2.0 (Premium only); advanced features include message sessions (FIFO), dead-letter queues, scheduled delivery, transactions, and duplicate detection; SLA 99.9% with geo-disaster recovery option; security via IP firewall, Service Endpoints, and Private Endpoints; three tiers (Basic 256 KB queues only, Standard 256 KB with topics/transactions/sessions, Premium 1 MB with Geo-DR/resource isolation/AZ support); pricing based on tier and operations
 
 ### Identity Management
-- **Microsoft Entra ID** (formerly Azure Active Directory): Central identity and access management cloud service; secure, robust, intelligent; manages access to thousands of apps including the Azure Portal
+- **Microsoft Entra ID** (formerly Azure Active Directory): Central cloud identity and access management service; cloud-based (OAuth/OIDC/SAML), distinct from on-prem AD DS (LDAP/Kerberos/GPO)
 - **Tenant** (Directory): Specific instance of Entra ID containing accounts and groups; exists beside subscriptions (not part of the subscription hierarchy); a new tenant is automatically created for new subscriptions; a single tenant can be assigned to multiple subscriptions
+- **Users and Groups**: Members (internal) vs Guests (external via B2B); dynamic groups require Premium P1
+- **Licenses**: Free (500K objects, basic MFA via Security Defaults), Premium P1 (~$6/user/mo: Conditional Access, dynamic groups, SSPR with writeback, Application Proxy, Entra Connect), Premium P2 (~$9/user/mo: risk-based Conditional Access/Identity Protection, PIM, Access Reviews)
+- **Security Defaults**: Free-tier baseline (require MFA, block legacy auth); mutually exclusive with Conditional Access
+- **Conditional Access** (P1): If-then policies — signals (user/group, app, location, device, risk) → decision (block/grant with conditions) → enforcement; report-only mode for testing
+- **Privileged Identity Management (PIM)** (P2): Just-in-time, time-bound activation of privileged roles; eligible vs active assignments with approval/MFA/justification
+- **RBAC**: Built-in roles (Owner, Contributor, Reader, User Access Administrator); scope hierarchy Management Group → Subscription → Resource Group → Resource (inherited downward); Azure RBAC roles vs Entra ID roles are separate systems; custom roles supported
+- **Managed Identities**: System-assigned (tied to resource lifecycle) vs User-assigned (independent, reusable); avoids credential management
+- **App Registrations & Service Principals**: Apps use OAuth 2.0/OIDC and JWT tokens; Service Principal is the in-tenant identity of a registered app; App Service supports Easy Auth
+- **Azure AD B2C**: Identity-as-a-service for customer-facing apps; separate tenant; works with social/OIDC providers; being superseded by Microsoft Entra External ID
+- **B2B Collaboration**: Invite external guests; guests authenticate against their home tenant, host tenant only grants permissions
+- **Hybrid Identity (Entra Connect)**: Syncs on-prem AD to Entra ID; authentication options: Password Hash Sync (PHS, default), Pass-Through Authentication (PTA, no hashes in cloud), Federation (AD FS, most complex); Seamless SSO supplements PHS/PTA
+- **Entra Domain Services**: Managed AD DS in Azure (domain join, LDAP, Kerberos, GPO) for lift-and-shift/legacy apps; no domain controllers to manage
 
 ## Content Guidelines When Adding/Editing
 
