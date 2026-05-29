@@ -44,3 +44,6 @@ This repository contains structured notes covering Azure services, architectural
 
 ### 05. Identity Management
 - [Microsoft Entra ID](./05-identity-management/entra-id.md) - Central cloud identity and access management service (formerly Azure AD); tenants (directories) exist beside subscriptions; Free/P1/P2 licenses; Security Defaults vs Conditional Access; PIM and Identity Protection (P2); Azure RBAC roles vs Entra ID roles with scope hierarchy (MG → Sub → RG → Resource); Managed Identities (system/user assigned) and Service Principals; B2B guest collaboration; Azure AD B2C (superseded by Entra External ID); hybrid identity via Entra Connect (PHS, PTA, Federation) with Seamless SSO; Entra ID vs on-prem AD DS vs managed Entra Domain Services
+
+### 06. Monitoring in Azure
+- [Resource Monitoring](./06-monitoring-in-azure/resource-monitoring.md) - Monitoring section per resource (Insights, Alerts, Metrics, Diagnostic settings, Logs); alerts with conditions/actions/details sent to Action Groups; alert pricing (per metric and per notification type with free tiers); logs stored and queried centrally in a Log Analytics Workspace using Kusto (KQL)
