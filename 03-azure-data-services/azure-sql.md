@@ -121,10 +121,64 @@
 
 ## Service Tiers (vCore)
 
-- General Purpose -> balanced compute and storage; budget-oriented; remote storage
-- Business Critical -> high performance, low latency local SSD; built-in read replica; highest resilience
-- Hyperscale -> highly scalable storage up to 100 TB; fast backups/restores; rapid read-scale-out
-    - Not available for Managed Instance or Elastic Pool
+### General Purpose
+
+- Balanced compute and storage; budget-oriented (default choice)
+- Available for all deployment options: Single Database, Elastic Pool and Managed Instance
+- Storage: remote (Azure Premium) -> higher latency
+- Storage limit: up to 4 TB (Single DB / Elastic Pool), up to 16 TB (Managed Instance)
+- Availability based on separation of compute and storage (single replica)
+- Supports zone-redundant configuration and serverless compute
+- SLA: 99.99%
+
+### Business Critical
+
+- High performance, low latency local SSD storage
+- Available for all deployment options: Single Database, Elastic Pool and Managed Instance
+- Uses Always On availability group with 3 replicas
+- Includes a free built-in read-only replica (read scale-out)
+- In-Memory OLTP support
+- Storage limit: up to 4 TB
+- Highest resilience; supports zone-redundancy
+- Higher cost than General Purpose
+- SLA: 99.99% (up to 99.995% with zone redundancy)
+
+### Hyperscale
+
+- Highly scalable storage up to 100 TB
+- Decoupled compute, log and storage architecture
+- Fast (near-instant) backups and restores regardless of DB size, based on snapshots
+- Rapid horizontal read scale-out -> up to 4 high-availability secondary replicas
+- Best for very large databases that need fast scaling
+- Single Database only -> not available for Managed Instance or Elastic Pool
+- Supports serverless compute
+
+> Note: DTU model has its own tiers -> Basic, Standard, Premium (Single DB and Elastic Pool only).
+
+## Service Tiers (DTU)
+
+- Available for Single Database and Elastic Pool only (not Managed Instance)
+- Bundles compute, storage and I/O into a single DTU unit
+
+### Basic
+
+- Lowest cost; for small, infrequently used databases
+- Limited storage and performance
+- SLA: 99.99%
+
+### Standard
+
+- General-purpose workloads with balanced price/performance
+- Wider range of storage and DTU sizes
+- SLA: 99.99%
+
+### Premium
+
+- High performance for I/O-intensive, mission-critical workloads
+- Uses local SSD storage with built-in replicas (Always On)
+- Supports In-Memory OLTP and read scale-out
+- SLA: 99.99%
+
 
 ## Which Azure SQL to Choose?
 
