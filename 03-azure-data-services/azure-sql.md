@@ -20,12 +20,17 @@
 - It is a single database on a single server
 - It has automatic backups, updates and scaling
 - Good compatibility with on-prem SQL Server, but not all features are supported (such as CLR code)
+- Deployment options:
+    - Single Database -> dedicated resources for one database
+    - Elastic Pool -> shared resources across multiple databases
 - Security:
     - IP firewall rules
-    - Service Endpoints
-    - SQL and Azure AD Authentication
+    - Service Endpoints and Private Endpoints (Private Link)
+    - SQL and Microsoft Entra ID (Azure AD) Authentication
     - Secure communication (TLS)
-    - Data encrypted by default (TDE - Transparent Data Encryption)
+    - Data encrypted at rest by default (TDE - Transparent Data Encryption)
+    - Always Encrypted -> protects sensitive data in use (client-side)
+    - Microsoft Defender for SQL -> threat detection and vulnerability assessment
 - Backup:
     - SQL Databases offers the following types of backups:
         - Full -> happens every week
@@ -34,9 +39,11 @@
     - Retention period for the backups:
         - Regular backups: 7-35 days, configurable, default is 7
         - Long term backups: up to 10 years
-- Availability:
-    - Backups are stored in a geo-redundant storage
-    - Active geo-replication
+- Availability & Disaster Recovery:
+    - Backups are stored in geo-redundant storage by default
+    - Active geo-replication -> up to 4 readable secondary replicas, manual failover
+    - Auto-failover groups -> automatic failover with a stable connection endpoint (preferred for DR)
+    - Zone-redundant configuration -> spreads replicas across Availability Zones
     - SLA: 99.9% - 99.995%, depends on the tier and redundancy
 - Compute tiers:
     - Provisioned
@@ -51,26 +58,26 @@
 ### Elastic Pool
 
 - Based on Azure SQL
-- Allows storing multiple databases on a singler server
-- Great for database with low average utilization and infrequent spikes
-- It is verry cost effective
-- We purchase the compute resourses that we need, not the database
+- Allows storing multiple databases on a single server
+- Great for databases with low average utilization and infrequent spikes
+- Very cost effective -> databases share the same pool of resources (DTUs or vCores)
+- We purchase the compute resources for the pool, not per database
+- Databases can be moved in and out of the pool
 
 ### Managed Instance
 
-- Closer to the on-rem SQL Server compared to Azure SQL Database and Elastic Pool
+- Closer to the on-prem SQL Server compared to Azure SQL Database and Elastic Pool
 - Near 100% compatibility with on-prem SQL
-- In addition we can deploy managed instance into a VNet
+- Deployed into a VNet (private IP) -> best for lift-and-shift migrations
+- Supports instance-scoped features: SQL Agent, cross-database queries, CLR, Service Broker, Linked Servers
 - Business model closer to the on-prem one
-- Main differences between Managed Instacne and other flavors:
-    - No active geo-replication
+- Main differences between Managed Instance and other flavors:
+    - Uses auto-failover groups for DR (no active geo-replication of single DBs)
     - SLA 99.99%
-    - Supports built-in functions
+    - Supports built-in functions and SQL Agent
     - Can run CLR code
-    - No autoscaling and tuning
-    - No availability zone
-    - No serverless tier
-    - No Hyperscale (specialized tier, offers high performance)
+    - No serverless tier (General Purpose only as of GA)
+    - No DTU purchase model (vCore only)
 
 ## Azure SQL Pricing
 
@@ -87,8 +94,8 @@
         - Single Database
         - Elastic Pool
     - Purchase Model:
-        - DTU: 100 DUT ~ 2 vCores
-        - vCores
+        - DTU -> bundles compute, storage and I/O into a single unit (simple, fixed)
+        - vCore -> independently choose compute and storage; supports Azure Hybrid Benefit and reservations
     - Services Tiers:
         - Single Database:
             - DTU:
@@ -112,8 +119,16 @@
         - Provisioned
     - Instance Size - number of vCores/DTUs
 
+## Service Tiers (vCore)
+
+- General Purpose -> balanced compute and storage; budget-oriented; remote storage
+- Business Critical -> high performance, low latency local SSD; built-in read replica; highest resilience
+- Hyperscale -> highly scalable storage up to 100 TB; fast backups/restores; rapid read-scale-out
+    - Not available for Managed Instance or Elastic Pool
+
 ## Which Azure SQL to Choose?
 
-- Are we migrating an on-prem SQL? -> Managed Instance
+- Are we migrating an on-prem SQL with instance-level features? -> Managed Instance
 - Do we need multiple low-utilization DBs? -> Elastic Pool
-- All other cases -> Azure SQL
+- Do we need very large databases (>4 TB) with fast scaling? -> Hyperscale
+- All other cases -> Azure SQL Database
