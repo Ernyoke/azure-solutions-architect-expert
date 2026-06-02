@@ -3,8 +3,9 @@
 - It is an object store, used to store objects such as files, documents, videos, images, etc.
 - It is massively scalable
 - Accessible via HTTP or HTTPS
-- We have client libraries for almost every programming languages to access Azure Storage
+- We have client libraries for almost every programming language to access Azure Storage
 - Azure Storage is durable and HA
+- Forms the storage backbone for many Azure services (VM disks, diagnostics, boot diagnostics, Azure Functions, etc.)
 
 ## Azure Storage Accounts
 
@@ -12,19 +13,22 @@
     - Standard general purpose v1 (legacy)
     - Standard general purpose v2
     - BlobStorage (legacy)
-    - BlockBlobStorage
-    - FileStorage
+    - Premium block blobs
+    - Premium file shares
+    - Premium page blobs
 - Storage accounts vary with the following features:
     - Supported Services: what can we put in a storage account?
         - Blob, File, Queue, Table, Disk and Data Lake Gen2
     - Performance Tiers: how fast will we read and write
-        - Standard and Premium
-    - Access Tiers: how ofter we need quick access to files
-        - Hot, Cool, Archive
+        - **Standard** (HDD-backed, lowest cost, general purpose)
+        - **Premium** (SSD-backed, low latency; uses LRS/ZRS only; chosen via specialized account kinds: BlockBlobStorage, FileStorage, page blobs)
+    - Access Tiers: how often we need quick access to files
+        - Hot, Cool, Cold, Archive
     - Replication:
         - LRS, GRS, RA-GRS, ZRS, GZRS, RA-GZRS
     - Deployment model:
-        - Resouce Manager, Classic
+        - Resource Manager, Classic
+- For most new workloads **Standard general purpose v2** is the recommended account kind
 
 ## Azure Storage Types
 
@@ -40,28 +44,42 @@
         - Similar to CosmosDB, but less optimized for performance and availability
     - Disks: 
         - Storage volumes for Azure VMs
-        - They are managed by VMs, from our point of view there is nothign to deal with here
+        - With managed disks Azure handles the underlying storage account; from our point of view there is nothing to manage here
+    - Data Lake Storage Gen2:
+        - Blob storage with a **hierarchical namespace** enabled
+        - Optimized for big data analytics workloads (HDFS-compatible)
 
 ## Azure Blobs Storage
 
 - Blob = Binary Large Object
 - Great for storing files, videos, documents, large texts, etc.
 - We can upload up to 4.77TB of data per file, 190TB in preview
-- Blob storage is extremly cost effective
-- It has grear availability options
-- It is extremly easy to use
+- Blob storage is extremely cost effective
+- It has great availability options
+- It is extremely easy to use
 - Usually used in conjunction with SQL/NoSQL databases
+- Three blob types:
+    - **Block blobs**: text and binary data (files, images, documents) - the most common type
+    - **Append blobs**: optimized for append operations (e.g., logging)
+    - **Page blobs**: random read/write, back **unmanaged** VM disks (up to 8 TB)
 
-## Azure Blon Storage Security
+## Azure Blob Storage Security
 
 - Includes:
     - IP firewall rules
     - Service Endpoints
     - Private Endpoints
     - Shared Access Signatures
-    - Access Keys and Azure AD Authentication
+    - Access Keys and Microsoft Entra ID Authentication
     - Secure communication using TLS
     - Data is encrypted by default
+- **Encryption at rest (Storage Service Encryption, SSE)**:
+    - Always on, cannot be disabled, uses 256-bit AES
+    - **Microsoft-managed keys (MMK)** by default
+    - **Customer-managed keys (CMK)** in Azure Key Vault for control over rotation/lifecycle
+    - **Customer-provided keys** can be supplied per blob request
+    - **Infrastructure encryption** can be enabled for a second layer (double encryption)
+    - **Encryption scopes** allow different keys for different containers/blobs within one account
 
 ## Azure Blob Storage Structure
 
@@ -99,17 +117,17 @@
 
 - Tiers are:
     - Hot:
-        - Targeted for data the needs to be accessed frequently
+        - Targeted for data that needs to be accessed frequently
         - Best SLA: 99.9%
-        - Has the highest storage cost, but he lowest access cost
+        - Has the highest storage cost, but the lowest access cost
         - Recommended for:
             - Photos to be displayed on a site
-            - Documetns to be donwloaded
+            - Documents to be downloaded
             - etc.
     - Cool:
-        - Recommeded for data that we need to access infrequently
+        - Recommended for data that we need to access infrequently
         - Slightly lower SLA: 99%
-        - It has lower storage costs, but access costs are higher tha the Hot tier
+        - It has lower storage costs, but access costs are higher than the Hot tier
         - Data must be stored for at least 30 days, otherwise early fees are applied for deletion
         - Examples of usage:
             - Short term backups
@@ -130,22 +148,50 @@
     - We can upload a blob to the tier of our choice
     - Changing tiers happens instantly with exception from moving out of archive
 - Rehydrating a Blob: when moving a blob out of archive into another tier it can take several hour => this is called "rehydrating"
-- When a blob is uploaded or moved to another tier, it is charged immediatly upon tier change:
+- When a blob is uploaded or moved to another tier, it is charged immediately upon tier change:
     - When moving from a cooler tier:
         - The operation is billed as a write operation to the destination tier
         - Write operation (per 10_000) and data write (per GB) charges of the destination tier apply
     - When moving from a hotter tier:
         - The operation is billed as a read from the source tier
-        - Read opertion (per 10_000) and data retrieval (per GB) charges of the source tier apply
-        - Early deletion charges fron any blob moved out of the cool/archive tier may apply as well
+        - Read operation (per 10_000) and data retrieval (per GB) charges of the source tier apply
+        - Early deletion charges from any blob moved out of the cool/archive tier may apply as well
+- There is also a **Cold** tier (between Cool and Archive): online access, lower storage cost than Cool, 90-day minimum, higher access cost
 
 ## Azure Blob Storage Pricing
 
 - Pricing is based on:
-    - Redudancy options
-    - Access tier: hot, cool, archive
+    - Redundancy options
+    - Access tier: hot, cool, cold, archive
     - Capacity: storage used
-    
+    - Operations and data transfer (read/write/list, egress)
+- **Reserved capacity** (1 or 3 years) provides discounts for committed Block Blob/Data Lake storage
+
+## Lifecycle Management
+
+- Rule-based policies to automatically transition or delete blobs based on age/last modified/last accessed
+- Typical actions:
+    - Move to Cool/Cold/Archive after N days
+    - Delete blobs (or previous versions/snapshots) after N days
+- Helps optimize cost by moving cold data to cheaper tiers automatically
+
+## Data Protection Features
+
+- **Blob versioning**: automatically keeps previous versions of a blob on overwrite/delete
+- **Snapshots**: read-only point-in-time copies of a blob (manual)
+- **Soft delete** (blobs, containers, file shares): recover deleted data within a retention window
+- **Change feed**: ordered, durable log of all create/update/delete changes to blobs
+- **Point-in-time restore** for block blobs (requires versioning + change feed + soft delete)
+- **Immutable storage (WORM)** for compliance:
+    - **Time-based retention** policies and **legal holds**
+    - Data cannot be modified or deleted while the policy is active
+- **Object replication**: asynchronously copies block blobs from a source to a destination account (requires versioning + change feed)
+
+## Static Website Hosting
+
+- Blob storage can host **static websites** directly (HTML, CSS, JS) from the special `$web` container
+- Serves content from a primary endpoint; combine with **Azure Front Door / CDN** for HTTPS on custom domains and caching
+
 ## Soft Delete
 
 - It is enabled by default when a storage account is created
@@ -172,7 +218,14 @@
     - We can provide limited access to containers within our account by generating an URI
     - With shared access signature we can provide fined grained access to containers, files, queues and tables
     - Shared access signatures have an expiry date (default 8 hours)
-    - SAS token can limit access to specific IP addresses
+    - SAS token can limit access to specific IP addresses and protocols (HTTPS only)
+    - SAS types:
+        - **Account SAS**: access to one or more services at the account level
+        - **Service SAS**: access to a resource in a single service (e.g., a blob/container)
+        - **User delegation SAS**: secured with **Microsoft Entra ID** credentials instead of the account key (most secure, recommended for Blob)
+    - **Stored access policies** allow centrally managing/revoking service SAS tokens
+- Authorization options summary: **anonymous public access**, **Shared Key (account keys)**, **SAS tokens**, and **Microsoft Entra ID (RBAC)** - Entra ID is the recommended approach
+- Use **Azure Key Vault** to store and rotate account keys/connection strings
 
 ## Storage Capacity
 
@@ -191,7 +244,7 @@
 
 ## AzCopy
 
-- AzCopy is a command-line utility that we can use to copu blobs of files to/from a storage account
+- AzCopy is a command-line utility that we can use to copy blobs or files to/from a storage account
 - To download data we need Storage Blob Data Reader access
 - To upload data:
     - Storage Blob Data contributor
@@ -203,3 +256,19 @@
 - The purpose of a CDN is to bring the content of the storage account closer to the consumer
 - Currently storage accounts can use Front Door and Azure CDN to setup replication to the edge locations
 - Azure Front Door is a comprehensive, modern application delivery platform (CDN + WAF + Load Balancer) optimized for dynamic content, APIs, and global application security. Azure CDN is a simpler, specialized service primarily optimized for caching and delivering static content (images, videos, files)
+
+## Azure Files
+
+- Fully managed **file shares** in the cloud accessed via **SMB**, **NFS**, and the FileREST API
+- Can be **mounted** concurrently by cloud VMs and on-prem machines (cross-platform)
+- Common use cases: lift-and-shift of on-prem file shares, shared application config/tools, replacing file servers
+- Authentication/authorization via **identity-based access** (on-prem AD DS or **Microsoft Entra Domain Services**) or the storage account key
+- Tiers: Premium (SSD, FileStorage account) and Standard (transaction-optimized, Hot, Cool)
+- **Azure File Sync**: caches Azure file shares on on-prem Windows Servers (cloud tiering) for fast local access with the cloud as the source of truth
+
+## Azure Data Lake Storage Gen2
+
+- Built on Blob storage with a **hierarchical namespace (HNS)** enabled (true directories, atomic folder operations)
+- HDFS-compatible; designed for **big data analytics** (Azure Synapse, Databricks, HDInsight)
+- Supports POSIX-like **ACLs** in addition to Entra ID RBAC for fine-grained access
+- Inherits Blob features: tiers, lifecycle management, redundancy options
