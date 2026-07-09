@@ -1,0 +1,27 @@
+# Azure Backup Service
+
+- It is a cloud solution the offers secure, scalable and simple data backup and recovery across various Azure services
+- Five core components of Azure Backup:
+    - MARS Agent (Microsoft Azure Recovery Services Agent)
+    - Recovery Services Vault
+    - Azure Backup Services/MABS (Microsoft Azure Backup Server)
+    - VM Extension (Azure VM Backup)
+    - Backup Policy
+- What can be backed up:
+    - On-premises data
+    - VMs
+    - Managed Disks
+    - Azure File shares
+    - SQL server (within Azure VM)
+    - SAP HANA databases (within Azure VM)
+    - Azure Database for PostgreSQL servers
+    - Azure Blobs
+- Why use Azure Backup?
+    - Offload on-premises backups
+    - Back up Azure IaaS VMs
+    - Get unlimited data transfer (no limit and no charge)
+    - Keep data secure
+    - Centralize monitoring and management
+    - App consistent backups
+    - Automatic storage management
+    - Multiple storage options

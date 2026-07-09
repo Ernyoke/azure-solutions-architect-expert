@@ -179,7 +179,6 @@
 - Supports In-Memory OLTP and read scale-out
 - SLA: 99.99%
 
-
 ## Which Azure SQL to Choose?
 
 - Are we migrating an on-prem SQL with instance-level features? -> Managed Instance

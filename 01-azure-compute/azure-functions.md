@@ -126,7 +126,7 @@
         - Downsides:
             - There is no autoscale support for the dedicated plan
 
-## Choosing a Hosting Plan (AZ-305)
+## Choosing a Hosting Plan
 
 - **Consumption**: cheapest, true pay-per-use, automatic scaling => spiky/unpredictable workloads where cold start is acceptable
 - **Flex Consumption**: serverless billing + VNet integration + always-ready instances => need networking or reduced cold starts without paying for Premium

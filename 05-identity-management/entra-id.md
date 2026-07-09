@@ -61,6 +61,26 @@
 - Users are **eligible** for a role and must **activate** it (optionally with approval + MFA + justification)
 - Reduces standing admin access; includes audit logs and access reviews
 
+## Entitlement Management (P2)
+
+- Part of **Microsoft Entra ID Governance**; automates the access lifecycle at scale
+- Solves the problem of managing access to many resources (groups, apps, SharePoint sites) for internal and external users
+- Core building blocks:
+    - **Access Package**: a bundle of resources (groups, apps, SharePoint sites) plus the roles a user gets on them
+    - **Catalog**: a container that groups related resources and access packages; can be delegated to non-admin owners
+    - **Policy**: defines *who* can request a package, the *approval* workflow, and *lifecycle* settings (expiration, access reviews)
+- Self-service access requests: users request an access package and get access automatically after approval
+- Supports **external users (B2B)** — guests can request packages and are auto-removed when access expires
+- Lifecycle automation: time-bound access, **automatic expiration**, and recurring **access reviews** to remove stale access
+- **Separation of Duties (SoD)**: block a user from requesting a package if they already have a conflicting one
+
+## Access Reviews (P2)
+
+- Periodic recertification of access to groups, apps, and roles
+- Reviewers (admins, resource owners, or the users themselves) attest whether access is still needed
+- Stale or unneeded access can be automatically removed; helps enforce least privilege and compliance
+- Often combined with **PIM** - Privileged Identity Management (review privileged roles) and **Entitlement Management** (review access packages)
+
 ## Role Based Access Control (RBAC)
 
 - In the past authorization was defined per user or user group => this type of authorization is very granular and hard to maintain => RBAC to the rescue
@@ -112,6 +132,22 @@
         - For App Service: can be configured via Azure Portal (Easy Auth, with minimal code changes)
 - The authentication uses OAuth 2.0 / OIDC and JWT tokens
 - **Service Principal** = identity used by an app/service to access Azure resources (the in-tenant instance of an App registration)
+
+## Enterprise Applications
+
+- The tenant-level list of applications (Service Principals) that are integrated with Entra ID for SSO and access management
+- Two main sources of enterprise apps:
+    - **Gallery apps**: thousands of pre-integrated SaaS apps (Salesforce, ServiceNow, Workday, etc.)
+    - **Non-gallery / custom apps**: your own apps registered via App registration, or any app supporting SAML/OIDC
+- **App Registration vs Enterprise Application**:
+    - **App Registration** = the global app *definition* (lives in the home tenant)
+    - **Enterprise Application** = the **Service Principal**, the local *instance* of the app in a tenant used for sign-in and access
+- Key capabilities:
+    - **Single Sign-On (SSO)**: SAML, OIDC, password-based, or linked
+    - **User/group assignment**: control who can access the app; optionally require assignment
+    - **Provisioning**: automatically create/update/disable user accounts in the SaaS app (SCIM)
+    - **Conditional Access**: apply policies (MFA, device compliance, location) per app
+    - **Consent and permissions**: manage delegated/application permissions and admin consent
 
 ## Azure AD B2C
 
