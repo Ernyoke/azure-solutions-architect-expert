@@ -49,3 +49,8 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 ### 07. Security in Azure
 - [Network Security](./07-security-in-azure/network-security.md)
 - [VM Security](./07-security-in-azure/vm-security.md)
+
+### 08. Disaster Recovery
+- [Disaster Recovery Concepts](./08-disaster-recovery/dr-concepts.md)
+- [Azure Backup](./08-disaster-recovery/azure-backup-service.md)
+- [Azure Site Recovery](./08-disaster-recovery/azure-site-recovery.md)

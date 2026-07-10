@@ -16,6 +16,7 @@ The repository follows a numbered directory structure representing different top
 - `05-identity-management/` - Identity and access management (Microsoft Entra ID)
 - `06-monitoring-in-azure/` - Monitoring services (Resource Monitoring, Azure Monitor, Resource Tags)
 - `07-security-in-azure/` - Security services (Network Security, VM Security)
+- `08-disaster-recovery/` - Disaster recovery concepts and services (Azure Backup, Azure Site Recovery)
 
 Each directory contains markdown files covering specific topics within that category.
 
@@ -139,6 +140,15 @@ Each directory contains markdown files covering specific topics within that cate
 - **Encryption in Transit**: TLS/HTTPS terminated at Application Gateway/Front Door; platform-encrypted backbone; VPN (IPsec) and ExpressRoute for hybrid
 - **Network Monitoring & Diagnostics**: Network Watcher (IP flow verify, next hop, topology, packet capture), NSG Flow Logs/Traffic Analytics, logs/alerts via Log Analytics
 - **VM Security**: Network access (NSGs, Bastion, JIT, jump box, Azure Firewall, no public IP for private VMs); identity and access (Entra ID authentication, least-privilege RBAC, Managed Identities, Key Vault for secrets, MFA/Conditional Access); data protection (SSE at rest by default, Customer-Managed Keys, Azure Disk Encryption, encryption at host, Confidential VMs for data in use); threat protection and patching (Microsoft Defender for Cloud/Defender for Servers, Secure Score, Azure Update Manager, Microsoft Antimalware, boot diagnostics)
+
+### Disaster Recovery
+- **Recovery Objectives**: RPO defines the acceptable amount of data loss; RTO defines the acceptable downtime; RLO defines the required recovery granularity
+- **Azure Backup**: Backup-and-restore service for Azure and on-premises workloads; uses Recovery Services vaults or Backup vaults depending on the data source; supports policy-based scheduling, retention, encryption, soft delete, and centralized monitoring
+- **Recovery Services Vault**: Stores recovery points for Azure VMs, Azure Files, SQL Server and SAP HANA in Azure VMs, and workloads protected by MARS, MABS, or DPM
+- **Backup Vault**: Protects newer workloads such as Azure managed disks, Azure Blobs, and Azure Database for PostgreSQL Flexible Server
+- **MARS Agent**: Backs up files, folders, and system state from supported Windows machines to a Recovery Services vault; does not support Linux or application-aware workload backups
+- **Azure VM Backup**: Uses a full initial backup followed by incremental backups; supports VM, disk, and file-level restore options
+- **Azure Site Recovery (ASR)**: Replicates workloads to a secondary location and orchestrates failover and failback; use it for lower RPO/RTO disaster recovery rather than long-term backup retention
 
 ## Content Guidelines When Adding/Editing
 
