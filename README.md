@@ -54,3 +54,4 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Disaster Recovery Concepts](./08-disaster-recovery/dr-concepts.md)
 - [Azure Backup](./08-disaster-recovery/azure-backup-service.md)
 - [Azure Site Recovery](./08-disaster-recovery/azure-site-recovery.md)
+- [Azure Front Door](./08-disaster-recovery/azure-front-door.md)
