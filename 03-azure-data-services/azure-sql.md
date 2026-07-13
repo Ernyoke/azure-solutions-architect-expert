@@ -1,83 +1,49 @@
 # Azure SQL
 
-- It is a managed SQL Server on Azure
-- Works like any other SQL Server using the same tools
-- Offers great compatibility with on-prem SQL Server:
-    - Depends on the exact Azure SQL Flavor
-- Offers built-in security, backups, availability and more
-- Offers flexible pricing models
+- Azure SQL is a family of Azure services based on the Microsoft SQL Server database engine
+- The services share familiar SQL Server tools and the T-SQL language, but differ in compatibility and how much infrastructure Microsoft manages
+- Azure SQL provides built-in patching, backups, high availability, monitoring, and security capabilities
 
-## Azure SQL Flavors
+## Azure SQL Service Map
 
-- There are 3 flavors of Azure SQL:
-    - Azure SQL Database
-    - Elastic Pool
-    - Managed Instance
+- **Azure SQL Database**: fully managed platform as a service (PaaS) for modern cloud applications
+    - Deploy as a single database or place multiple databases in an elastic pool
+    - Best when applications can work at database scope and do not require full SQL Server instance compatibility
+- **Azure SQL Managed Instance**: fully managed PaaS with near-full SQL Server instance compatibility
+    - Best for migrations that require instance-scoped features with minimal application changes
+- **SQL Server on Azure Virtual Machines**: infrastructure as a service (IaaS) with full SQL Server and operating system control
+    - Best when the workload requires OS access, unsupported SQL Server features, or a specific SQL Server version
+- **Elastic pool is not a separate service**: it is a purchasing and resource-sharing option for multiple Azure SQL databases
 
-### Azure SQL Database
+## Azure SQL Database
 
-- It is a managed SQL Server on Azure
-- It is a single database on a single server
-- It has automatic backups, updates and scaling
-- Good compatibility with on-prem SQL Server, but not all features are supported (such as CLR code)
+- A fully managed database service where Microsoft manages the database engine, operating system, patching, backups, and built-in availability
+- Databases are associated with a **logical server**, which is an administrative container for logins, firewall rules, auditing, and policies; it is not a physical SQL Server
+- Supports most database-scoped SQL Server features, but not every instance-scoped feature
+- Choose Azure SQL Database for new cloud applications, isolated databases, and applications designed to scale at database level
 - Deployment options:
-    - Single Database -> dedicated resources for one database
-    - Elastic Pool -> shared resources across multiple databases
-- Security:
-    - IP firewall rules
-    - Service Endpoints and Private Endpoints (Private Link)
-    - SQL and Microsoft Entra ID (Azure AD) Authentication
-    - Secure communication (TLS)
-    - Data encrypted at rest by default (TDE - Transparent Data Encryption)
-    - Always Encrypted -> protects sensitive data in use (client-side)
-    - Microsoft Defender for SQL -> threat detection and vulnerability assessment
-- Backup:
-    - SQL Databases offers the following types of backups:
-        - Full -> happens every week
-        - Differential -> every 12-24 hours
-        - Transaction log ->every 5-10 minutes
-    - Retention period for the backups:
-        - Regular backups: 7-35 days, configurable, default is 7
-        - Long term backups: up to 10 years
-- Availability & Disaster Recovery:
-    - Backups are stored in geo-redundant storage by default
-    - Active geo-replication -> up to 4 readable secondary replicas, manual failover
-    - Auto-failover groups -> automatic failover with a stable connection endpoint (preferred for DR)
-    - Zone-redundant configuration -> spreads replicas across Availability Zones
-    - SLA: 99.9% - 99.995%, depends on the tier and redundancy
-- Compute tiers:
-    - Provisioned
-        - We pay for allocated resources regardless of actual use
-        - Can be reserved, we pay upfront fee for a discount
-    - Serverless:
-        - We pay only for what we actually use: (vCore + RAM) / second
-        - Automatically paused when inactive, in this case we pay only for the storage
-        - Slight delay when the database is warming up
-        - Cannot be reserved
+    - **Single database**: one database receives its own purchased compute resources
+    - **Elastic pool**: multiple databases share a purchased pool of compute resources
 
-### Elastic Pool
+## Azure SQL Database - Elastic Pools
 
-- Based on Azure SQL
-- Allows storing multiple databases on a single server
-- Great for databases with low average utilization and infrequent spikes
-- Very cost effective -> databases share the same pool of resources (DTUs or vCores)
-- We purchase the compute resources for the pool, not per database
-- Databases can be moved in and out of the pool
+- An elastic pool contains multiple Azure SQL databases on the same logical server that share DTU-based or vCore-based compute resources
+- Choose an elastic pool when databases have variable and unpredictable usage peaks that occur at different times
+- The pool sets total resources, while optional per-database minimums and maximums prevent one database from consuming the entire pool
+- Cost-effective for software as a service (SaaS) and multitenant designs with many databases that have low average utilization
+- Avoid an elastic pool when each database has consistently high or predictable utilization; dedicated single-database resources can be easier to size
+- Databases can be moved into and out of a pool
 
-### Managed Instance
+## Azure SQL Managed Instance
 
-- Closer to the on-prem SQL Server compared to Azure SQL Database and Elastic Pool
-- Near 100% compatibility with on-prem SQL
-- Deployed into a VNet (private IP) -> best for lift-and-shift migrations
-- Supports instance-scoped features: SQL Agent, cross-database queries, CLR, Service Broker, Linked Servers
-- Business model closer to the on-prem one
-- Main differences between Managed Instance and other flavors:
-    - Uses auto-failover groups for DR (no active geo-replication of single DBs)
-    - SLA 99.99%
-    - Supports built-in functions and SQL Agent
-    - Can run CLR code
-    - No serverless tier (General Purpose only as of GA)
-    - No DTU purchase model (vCore only)
+- A fully managed SQL instance with near-full compatibility with the SQL Server database engine
+- Supports instance-scoped features such as SQL Server Agent, cross-database queries, CLR, Service Broker, and linked servers
+- Deployed into a dedicated subnet in an Azure virtual network and accessed through private IP addresses by default
+- Choose Managed Instance for lift-and-shift migrations that need instance-level features but do not require operating system access
+- Uses the vCore purchasing model and supports General Purpose and Business Critical service tiers
+- Does not support the DTU purchasing model or serverless compute
+- Uses failover groups for cross-region disaster recovery; active geo-replication is an Azure SQL Database feature
+- Choose SQL Server on Azure VMs instead when the workload requires OS access, file-system access, or unsupported SQL Server features
 
 ## Azure SQL Pricing
 
@@ -118,6 +84,26 @@
         - Serverless
         - Provisioned
     - Instance Size - number of vCores/DTUs
+
+## DTU vs vCore Purchasing Model
+
+- The purchasing model determines how Azure SQL compute resources are selected and billed; it does not change the SQL language or application compatibility
+- **DTU (Database Transaction Unit)** bundles CPU, memory, data I/O, and transaction log I/O into one performance unit
+    - Choose DTU for small or straightforward Azure SQL Database workloads when simple bundled sizing is more important than resource transparency
+    - Useful when existing DTU monitoring or benchmarks already provide a known size
+    - Available only for Azure SQL Database single databases and elastic pools
+    - Uses the Basic, Standard, and Premium service tiers
+- **vCore** exposes the number of virtual cores and lets compute generation, service tier, storage, and compute tier be selected more independently
+    - Choose vCore for most new production workloads because sizing and costs are easier to compare with on-premises hardware
+    - Choose vCore when Azure Hybrid Benefit, reserved capacity, serverless compute, or independently configurable storage is required
+    - Required for Azure SQL Managed Instance and Hyperscale
+    - Uses the General Purpose, Business Critical, and Hyperscale service tiers
+- For migrations, use the Azure SQL migration tools or the DTU calculator to estimate the required size from CPU, memory, I/O, and storage measurements
+- A database can generally be converted between compatible DTU and vCore tiers, so the initial choice does not permanently lock the database to one model
+- Exam rule of thumb:
+    - **Simplicity and a small predictable workload** -> DTU
+    - **Cost transparency, flexibility, production optimization, or SQL Server license benefits** -> vCore
+    - **Managed Instance, Hyperscale, or serverless** -> vCore is required
 
 ## Service Tiers (vCore)
 
