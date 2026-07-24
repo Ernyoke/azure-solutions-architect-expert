@@ -9,7 +9,7 @@ This is a documentation repository containing study notes for the **Azure Soluti
 The repository follows a numbered directory structure representing different topics:
 
 - `00-basic-concepts/` - Foundational Azure concepts (regions, resource groups, cost, SLA, storage)
-- `01-azure-compute/` - Azure compute services (VMs, App Service, Azure Functions, AKS)
+- `01-azure-compute/` - Azure compute services (VMs, App Service, Azure Functions, AKS, Container Instances, Container Apps, Container Registry, Batch, Azure Virtual Desktop)
 - `02-azure-networking/` - Azure networking services (Virtual Networks, Load Balancer, Application Gateway)
 - `03-azure-data-services/` - Azure data services (databases on VMs, Azure SQL, MySQL, PostgreSQL, Cosmos DB, Redis, Storage, Data Factory, Synapse Analytics, Databricks)
 - `04-messaging-in-azure/` - Azure messaging services (Event Grid, Event Hubs, Service Bus, Storage Queue)
@@ -40,7 +40,7 @@ Each directory contains markdown files covering specific topics within that cate
 ## Key Azure Concepts Covered
 
 - **Foundations**: Regions, availability, SLAs, costs, resource groups and storage accounts
-- **Compute**: VMs, App Service, Azure Functions and AKS
+- **Compute**: VMs, App Service, Azure Functions, AKS, containers (ACI, Container Apps, ACR), Batch and Azure Virtual Desktop
 - **Networking**: VNets, load balancing and Application Gateway
 - **Data**: Databases on VMs, relational databases, Cosmos DB, Redis and Azure Storage
 - **Analytics**: Azure Data Factory, Synapse Analytics and Databricks

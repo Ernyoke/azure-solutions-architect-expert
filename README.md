@@ -17,6 +17,11 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [App Service](./01-azure-compute/app-service.md)
 - [Azure Functions](./01-azure-compute/azure-functions.md)
 - [Azure Kubernetes Service (AKS)](./01-azure-compute/aks.md)
+- [Azure Container Instances (ACI)](./01-azure-compute/container-instances.md)
+- [Azure Container Apps](./01-azure-compute/container-apps.md)
+- [Azure Container Registry (ACR)](./01-azure-compute/container-registry.md)
+- [Azure Batch](./01-azure-compute/azure-batch.md)
+- [Azure Virtual Desktop (AVD)](./01-azure-compute/azure-virtual-desktop.md)
 
 ### 02. Azure Networking
 - [Virtual Networks (VNets)](./02-azure-networking/virtual-networks.md)
