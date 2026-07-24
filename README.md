@@ -55,3 +55,11 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Azure Backup](./08-disaster-recovery/azure-backup-service.md)
 - [Azure Site Recovery](./08-disaster-recovery/azure-site-recovery.md)
 - [Azure Front Door](./08-disaster-recovery/azure-front-door.md)
+
+### 09. Governance
+- [Governance in Azure](./09-governance/governance.md)
+- [Management Groups](./09-governance/management-groups.md)
+- [Azure Policy](./09-governance/azure-policy.md)
+- [Cloud Adoption Framework](./09-governance/cloud-adoption-framework.md)
+- [Well-Architected Framework](./09-governance/well-architected-framework.md)
+- [Cost Governance](./09-governance/cost-governance.md)

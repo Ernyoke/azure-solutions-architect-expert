@@ -11,12 +11,13 @@ The repository follows a numbered directory structure representing different top
 - `00-basic-concepts/` - Foundational Azure concepts (regions, resource groups, cost, SLA, storage)
 - `01-azure-compute/` - Azure compute services (VMs, App Service, Azure Functions, AKS)
 - `02-azure-networking/` - Azure networking services (Virtual Networks, Load Balancer, Application Gateway)
-- `03-azure-data-services/` - Azure data services (Azure SQL, MySQL, PostgreSQL, Cosmos DB, Redis, Storage)
+- `03-azure-data-services/` - Azure data services (databases on VMs, Azure SQL, MySQL, PostgreSQL, Cosmos DB, Redis, Storage, Data Factory, Synapse Analytics, Databricks)
 - `04-messaging-in-azure/` - Azure messaging services (Event Grid, Event Hubs, Service Bus, Storage Queue)
 - `05-identity-management/` - Identity and access management (Microsoft Entra ID)
 - `06-monitoring-in-azure/` - Monitoring services (Resource Monitoring, Azure Monitor, Resource Tags)
 - `07-security-in-azure/` - Security services (network, VM, App Service, database, Defender, Key Vault)
 - `08-disaster-recovery/` - Disaster recovery and global resiliency services (Azure Backup, Azure Site Recovery, Azure Front Door)
+- `09-governance/` - Governance and management (management groups, Azure Policy, CAF, WAF, cost governance)
 
 Each directory contains markdown files covering specific topics within that category.
 
@@ -41,12 +42,14 @@ Each directory contains markdown files covering specific topics within that cate
 - **Foundations**: Regions, availability, SLAs, costs, resource groups and storage accounts
 - **Compute**: VMs, App Service, Azure Functions and AKS
 - **Networking**: VNets, load balancing and Application Gateway
-- **Data**: Relational databases, Cosmos DB, Redis and Azure Storage
+- **Data**: Databases on VMs, relational databases, Cosmos DB, Redis and Azure Storage
+- **Analytics**: Azure Data Factory, Synapse Analytics and Databricks
 - **Messaging**: Event Grid, Event Hubs, Service Bus and Storage Queue
 - **Identity**: Microsoft Entra ID, RBAC, managed identities and hybrid identity
 - **Monitoring**: Azure Monitor, metrics, logs, alerts and resource tags
 - **Security**: Network, workload, application, database, Defender and Key Vault controls
 - **Resiliency**: Recovery objectives, Azure Backup, Site Recovery and Front Door
+- **Governance**: Scope hierarchy, management groups, Azure Policy, locks, landing zones, CAF/WAF and cost governance
 
 ## Content Guidelines When Adding/Editing
 
