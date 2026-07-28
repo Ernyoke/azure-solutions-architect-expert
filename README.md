@@ -27,6 +27,7 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Virtual Networks (VNets)](./02-azure-networking/virtual-networks.md)
 - [Load Balancer](./02-azure-networking/load-balancer.md)
 - [Application Gateway](./02-azure-networking/application-gateway.md)
+- [API Management](./02-azure-networking/api-management.md)
 
 ### 03. Azure Data Services
 - [Databases on VMs](./03-azure-data-services/databases-on-vms.md)

@@ -30,6 +30,73 @@
         - Resource Manager, Classic
 - For most new workloads **Standard general purpose v2** is the recommended account kind
 
+### Storage Account Types in Detail
+
+- **Standard general purpose v2 (StorageV2)**:
+    - Supports **all services**: Blob (block, append, page), File, Queue, Table and Data Lake Gen2
+    - Supports **all access tiers**: Hot, Cool, Cold, Archive
+    - Supports **all redundancy options**: LRS, ZRS, GRS, GZRS, RA-GRS, RA-GZRS
+    - Supports lifecycle management, versioning, soft delete, change feed, static websites
+    - **Default choice** for nearly every new workload
+- **Premium block blobs (BlockBlobStorage)**:
+    - SSD-backed, block and append blobs only
+    - Very **low and consistent latency**, very high transaction rate
+    - Redundancy: **LRS and ZRS only** (no geo-redundancy)
+    - **No access tiers** (data is always "premium"); higher storage cost, much lower transaction cost
+    - Use for interactive/small-object, high-IOPS workloads
+- **Premium file shares (FileStorage)**:
+    - SSD-backed **Azure Files only** (SMB and **NFS 4.1** shares)
+    - Provisioned capacity model with predictable IOPS/throughput
+    - Redundancy: **LRS and ZRS only**
+    - Required if we need NFS file shares or low-latency file workloads
+- **Premium page blobs**:
+    - SSD-backed **page blobs only**
+    - Used for **unmanaged VM disks** and specialized page blob scenarios
+    - Redundancy: **LRS only**
+    - Rarely needed today - **managed disks** are the recommended approach for VM storage
+- **Standard general purpose v1 (Storage) - legacy**:
+    - Supports Blob, File, Queue, Table but **no access tiers**, no lifecycle management, no advanced data protection features
+    - Only reason to keep: classic deployment model requirements or slightly lower transaction pricing for very transaction-heavy legacy apps
+    - Can (and should) be **upgraded in place** to general purpose v2
+- **BlobStorage - legacy**:
+    - Block and append blobs only, with Hot/Cool/Archive tiers
+    - Superseded by general purpose v2
+
+### Choosing an Account Type by Scenario
+
+| Scenario | Recommended account |
+| --- | --- |
+| General app storage, backups, logs, mixed services | Standard general purpose v2 |
+| Data lake / analytics (Synapse, Databricks, HDInsight) | Standard general purpose v2 with **hierarchical namespace** (Data Lake Gen2) |
+| Archive of long-term compliance data | Standard general purpose v2, **Archive** tier + lifecycle rules |
+| Static website hosting | Standard general purpose v2 (`$web` container) + Front Door/CDN |
+| Many small objects, high transactions, latency-sensitive (IoT, e-commerce, real-time analytics) | **Premium block blobs** |
+| Enterprise file share replacing an on-prem file server (SMB) | Standard general purpose v2 + Azure Files (or Premium file shares if latency matters) |
+| **NFS** file share or latency-sensitive file workload (databases, HPC, SAP) | **Premium file shares** |
+| Unmanaged VM disks / legacy IaaS requirement | **Premium page blobs** (prefer managed disks instead) |
+| Queue or Table storage for lightweight messaging/NoSQL | Standard general purpose v2 |
+
+### Choosing Performance, Tier and Redundancy
+
+- **Performance**:
+    - Choose **Standard** when cost matters more than latency (backups, archives, logs, general blobs)
+    - Choose **Premium** when we need single-digit millisecond latency or very high transaction rates
+    - Premium is cheaper than Standard when the workload is **transaction-heavy but small in size**
+- **Access tier** (blobs, general purpose v2):
+    - **Hot**: accessed frequently (active app data, website content)
+    - **Cool**: accessed less than once a month, kept >= 30 days (short-term backups)
+    - **Cold**: rarely accessed, kept >= 90 days, still online
+    - **Archive**: rarely accessed, kept >= 180 days, offline, hours to rehydrate (compliance/long-term retention)
+    - Combine with **lifecycle management** to move data down automatically
+- **Redundancy**:
+    - **LRS**: cheapest, non-critical or easily reproducible data, or data already replicated by the app
+    - **ZRS**: protection from a datacenter (zone) failure inside a region - default for HA within a region
+    - **GRS**: protection from a full regional outage, no read access until failover
+    - **RA-GRS**: same as GRS but the secondary is **readable**, useful for read-heavy DR and improves SLA to 99.99% (Hot)
+    - **GZRS / RA-GZRS**: highest resiliency (zone + region), for critical business data
+    - Premium accounts support **only LRS/ZRS** - for geo-protection use object replication or a second account
+- **Data residency / sovereignty**: if data must not leave the region, use LRS or ZRS (geo options replicate to the paired region)
+
 ## Azure Storage Types
 
 - Types are:
