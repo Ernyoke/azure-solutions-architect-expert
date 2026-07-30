@@ -52,6 +52,35 @@
     - Select Linux over Windows when possible
     - Check the price in nearby regions
 
+## Host Caching for VM Disks
+
+- Host caching (disk caching) uses the VM host's RAM and local SSD as a cache in front of the managed disk
+- Cached IO is served by the host => lower latency, and it does **not** count against the disk's provisioned IOPS/throughput limits
+- Caching options:
+    - **None**:
+        - No caching, all reads and writes go directly to the disk
+        - Use for write-heavy or write-only workloads (ie. database transaction logs), and for disks larger than the cache can help with
+    - **ReadOnly**:
+        - Reads are cached, writes go straight to the disk (and invalidate the cache)
+        - Use for read-heavy workloads (ie. database data files, static content)
+        - Safe option, no risk of data loss from the cache
+    - **ReadWrite**:
+        - Both reads and writes are cached, writes are acknowledged once written to the cache
+        - Risk of data loss if the VM crashes before the cache is flushed => the app must handle flushing (ie. `FILE_FLAG_WRITE_THROUGH`)
+        - Recommended only for the OS disk, or apps that control flushing themselves
+- Defaults:
+    - OS disk: **ReadWrite**
+    - Data disk: **ReadOnly** (None for Standard HDD in some sizes)
+- Typical recommendations:
+    - OS disk => ReadWrite
+    - SQL Server / database **data** files => ReadOnly
+    - SQL Server / database **log** files => None
+    - Temp/scratch or write-only workloads => None
+- Limitations:
+    - Supported for Premium SSD and Standard disks; **not supported** for Ultra Disks and Premium SSD v2
+    - Not supported for disks larger than 4 TiB (must be set to None)
+    - Changing the cache setting detaches and reattaches the data disk; changing it on the OS disk restarts the VM
+
 ## Availability of a VM
 
 - VMs that have 2 or more instances deployed across 2 or more AZs in the same region SLA is 99.99%

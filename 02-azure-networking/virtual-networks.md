@@ -141,6 +141,7 @@
 - It is a secured tunnel to the VNet
 - Can be configured so that no one else can connect to the VNet
 - Requires VPN software and license (not part of Azure)
+- For the Azure managed service (site-to-site, point-to-site, VNet-to-VNet) see [VPN Gateway](./vpn-gateway.md)
 
 ### Jump Box
 

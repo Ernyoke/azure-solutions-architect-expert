@@ -27,6 +27,7 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Virtual Networks (VNets)](./02-azure-networking/virtual-networks.md)
 - [Load Balancer](./02-azure-networking/load-balancer.md)
 - [Application Gateway](./02-azure-networking/application-gateway.md)
+- [VPN Gateway](./02-azure-networking/vpn-gateway.md)
 - [API Management](./02-azure-networking/api-management.md)
 
 ### 03. Azure Data Services
@@ -46,6 +47,8 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 
 ### 05. Identity Management
 - [Microsoft Entra ID](./05-identity-management/entra-id.md)
+- [Microsoft Entra Domain Services (Azure AD DS)](./05-identity-management/entra-domain-services.md)
+- [Active Directory Federation Services (AD FS)](./05-identity-management/ad-fs.md)
 
 ### 06. Monitoring in Azure
 - [Resource Monitoring](./06-monitoring-in-azure/resource-monitoring.md)
@@ -66,6 +69,7 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Governance in Azure](./09-governance/governance.md)
 - [Management Groups](./09-governance/management-groups.md)
 - [Azure Policy](./09-governance/azure-policy.md)
+- [Azure Blueprints](./09-governance/azure-blueprints.md)
 - [Cloud Adoption Framework](./09-governance/cloud-adoption-framework.md)
 - [Well-Architected Framework](./09-governance/well-architected-framework.md)
 - [Cost Governance](./09-governance/cost-governance.md)

@@ -24,7 +24,7 @@
 | Resource locks | Prevent accidental delete/modify |
 | Tags | Metadata for cost allocation and ownership |
 | Cost Management + budgets | Spend visibility and alerting |
-| Blueprints (retired) | Replaced by Bicep/Terraform + Deployment Stacks + Template Specs |
+| [Blueprints](./azure-blueprints.md) (deprecated) | Package of artifacts for repeatable environments, replaced by Bicep/Terraform + Deployment Stacks + Template Specs |
 
 - RBAC and Policy are complementary: RBAC allows an action, Policy can still deny the resulting resource
 

@@ -54,6 +54,41 @@
     - Install and register the agent on the Windows machine
     - Configure the backup schedule and retention in the MARS console
 
+## System Center Data Protection Manager (DPM)
+
+- DPM is the enterprise backup component of Microsoft System Center, installed on an on-premises (or Azure VM) Windows Server
+- It provides **application-aware**, disk-to-disk-to-cloud backup and is used when the MARS agent alone is not enough
+- Requires a **System Center license**
+- What DPM can protect:
+    - Files, folders, volumes and Windows **system state / bare-metal recovery**
+    - **Hyper-V** and **VMware** virtual machines
+    - Application workloads: **SQL Server, Exchange, SharePoint**
+    - Windows and Linux guest workloads running on supported hypervisors
+- Backup targets (three tiers):
+    - **Local disk (storage pool)**: fast, short-term operational recovery
+    - **Tape**: long-term retention and offsite archival (DPM only)
+    - **Azure Recovery Services vault**: long-term retention in the cloud
+- How DPM integrates with Azure Backup:
+    - A protection agent is installed on each protected server and sends data to the DPM server
+    - The **MARS agent** is installed on the **DPM server**, which then sends the backup data to a Recovery Services vault
+    - Protected servers never talk to Azure directly - only the DPM server does
+- Benefits:
+    - Short RTO for local restores, plus offsite copies in Azure without a secondary datacenter
+    - Centralized protection for many servers with a single connection point to Azure
+    - Continues to work when the Azure connection is temporarily unavailable, because backups land on local disk first
+
+### DPM vs MABS
+
+- **MABS (Microsoft Azure Backup Server)** is essentially DPM without the System Center dependency
+- **License**: DPM requires System Center; MABS is included with Azure Backup at no extra license cost (only vault storage is billed)
+- **Tape**: DPM supports tape backup; **MABS does not**
+- **Azure requirement**: MABS must be registered with a Recovery Services vault; DPM can run standalone without Azure
+- Both use the same engine, protection agents, and workload support, and both use the MARS agent to send data to Azure
+- Rule of thumb:
+    - Already have System Center or need **tape** -> **DPM**
+    - Need application-aware on-premises backup with Azure long-term retention, no System Center -> **MABS**
+    - Only files, folders and system state on a few Windows machines -> **MARS agent alone**
+
 ## Azure Backup Policy
 
 - An Azure Backup policy defines when backups run and how long recovery points are retained

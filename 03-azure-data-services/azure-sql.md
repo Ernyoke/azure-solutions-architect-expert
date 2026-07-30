@@ -47,6 +47,38 @@
 
 ## Azure SQL Pricing
 
+```mermaid
+flowchart LR
+    P[Azure SQL Pricing]
+
+    P --> MI[Managed Instance]
+    P --> SQL[Azure SQL]
+
+    MI --> MIT[Service Tier]
+    MIT --> MIGP[General Purpose]
+    MIT --> MIBC[Business Critical]
+    MI --> MIIT[Instance Type]
+    MIIT --> MIPool["Instance Pools<br/>(General Purpose only)"]
+    MIIT --> MISingle[Single Instance]
+    MI --> MIvCore["Instance: 8 - 80 vCore"]
+
+    SQL --> Type[Type]
+    Type --> SDB[Single Database]
+    Type --> EP[Elastic Pool]
+
+    SQL --> PM[Purchase Model]
+    PM --> DTU["DTU<br/>(compute + storage + I/O bundled)"]
+    PM --> VC["vCore<br/>(compute & storage separate,<br/>Hybrid Benefit + reservations)"]
+
+    SQL --> CT["Compute Tier<br/>(vCore only)"]
+    CT --> Serverless[Serverless]
+    CT --> Provisioned[Provisioned]
+
+    DTU --> DTUt["Basic<br/>Standard<br/>Premium"]
+    VC --> VCsdb["Single DB:<br/>General Purpose<br/>Business Critical<br/>Hyperscale"]
+    VC --> VCep["Elastic Pool:<br/>General Purpose<br/>Business Critical"]
+```
+
 - Managed Instance:
     - Service tier:
         - General Purpose
@@ -164,6 +196,64 @@
 - Uses local SSD storage with built-in replicas (Always On)
 - Supports In-Memory OLTP and read scale-out
 - SLA: 99.99%
+
+## Backup Options
+
+- Backups are **automatic** in Azure SQL Database and Managed Instance; there is nothing to schedule
+- Backup cadence (all tiers except Hyperscale):
+    - **Full** backup weekly
+    - **Differential** backup every 12-24 hours
+    - **Transaction log** backup every 5-10 minutes
+- **Point-in-Time Restore (PITR)** - short-term retention:
+    - Configurable **1-35 days**, default **7 days**
+    - Basic tier (DTU) supports only **1-7 days**
+    - Restore always creates a **new database**; it does not overwrite the existing one
+- **Long-Term Retention (LTR)**:
+    - Keeps weekly, monthly and yearly full backups for **up to 10 years**
+    - Used for compliance and audit requirements
+    - Available for Azure SQL Database (including Hyperscale) and Managed Instance
+- **Backup storage redundancy** (chosen at database creation):
+    - **LRS** - cheapest, single datacenter
+    - **ZRS** - across availability zones in the region
+    - **GRS** - default; paired region copy, enables **geo-restore**
+    - **GZRS** - zone + geo redundancy
+    - Geo-restore from geo-redundant backups: RPO up to 1 hour, RTO up to 12 hours
+- **Cost**: backup storage equal to 100% of the maximum data size is included; extra storage and LTR are billed separately
+
+### Backups by Service Tier
+
+- **General Purpose / Standard / Basic**: standard full + differential + log backups; PITR and LTR supported
+- **Business Critical / Premium**: same backup model as General Purpose; the extra replicas provide availability, **not** backup
+- **Hyperscale**:
+    - Uses **snapshot-based** backups on Azure storage - no traditional full/differential/log backups
+    - Backup and restore are **near-instantaneous** regardless of database size (constant time)
+    - PITR retention **1-35 days**; LTR is supported
+    - Backup storage redundancy can only be set at creation and **cannot be changed** afterwards
+- **Managed Instance**:
+    - Same automated backup model as Azure SQL Database, PITR **1-35 days** and LTR up to 10 years
+    - Additionally supports **COPY_ONLY** native backups to Azure Blob Storage and restore from `.bak` files (URL-based restore)
+- **SQL Server on Azure VMs**: backups are **not** automatic - use Azure Backup for SQL Server VMs or native SQL Server backup to URL
+
+## Columnstore Indexing
+
+- Stores data **column by column** instead of row by row, which suits analytical queries that scan many rows but few columns
+- Optimized for **OLAP / data warehousing and reporting** workloads; rowstore (B-tree) indexes remain the choice for **OLTP** point lookups and short transactions
+- Key benefits:
+    - Up to **10x query performance** gain over rowstore for analytical scans and aggregations
+    - Up to **10x data compression** over uncompressed rowstore, reducing storage cost and I/O
+    - Batch mode execution processes rows in batches instead of one at a time
+- Index types:
+    - **Clustered columnstore index (CCI)**: the entire table is stored in columnar format; highest compression, best for large fact tables
+    - **Nonclustered columnstore index (NCCI)**: a columnar copy of selected columns on a rowstore table; enables **real-time operational analytics** (analytics on an OLTP table without a separate warehouse)
+- Availability:
+    - Supported in Azure SQL Database, Azure SQL Managed Instance, and SQL Server on Azure VMs
+    - Requires **Standard tier S3 or higher** (DTU model); not available in Basic or Standard S0-S2
+    - Available in all vCore tiers (General Purpose, Business Critical, Hyperscale)
+    - Enabled by default for new tables in Azure Synapse Analytics dedicated SQL pools
+- Considerations:
+    - Best for tables with **at least ~1 million rows** per partition; small tables see little benefit
+    - Frequent single-row updates/deletes degrade columnstore efficiency; use index reorganize/rebuild to maintain it
+    - Can be combined with a rowstore index on the same table for hybrid (HTAP) workloads
 
 ## Which Azure SQL to Choose?
 
