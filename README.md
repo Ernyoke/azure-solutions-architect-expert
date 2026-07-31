@@ -24,6 +24,7 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Azure Virtual Desktop (AVD)](./01-azure-compute/azure-virtual-desktop.md)
 
 ### 02. Azure Networking
+- [Network Design](./02-azure-networking/network-design.md)
 - [Virtual Networks (VNets)](./02-azure-networking/virtual-networks.md)
 - [Load Balancer](./02-azure-networking/load-balancer.md)
 - [Application Gateway](./02-azure-networking/application-gateway.md)
@@ -61,6 +62,7 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 
 ### 07. Security in Azure
 - [Network Security](./07-security-in-azure/network-security.md)
+- [Azure Firewall](./07-security-in-azure/azure-firewall.md)
 - [VM Security](./07-security-in-azure/vm-security.md)
 - [App Service Security](./07-security-in-azure/app-service-security.md)
 - [Database Security](./07-security-in-azure/database-security.md)
@@ -69,6 +71,7 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 
 ### 08. Disaster Recovery
 - [Disaster Recovery Concepts](./08-disaster-recovery/dr-concepts.md)
+- [Business Continuity Design](./08-disaster-recovery/business-continuity-design.md)
 - [Azure Backup](./08-disaster-recovery/azure-backup-service.md)
 - [Azure Site Recovery](./08-disaster-recovery/azure-site-recovery.md)
 - [Azure Front Door](./08-disaster-recovery/azure-front-door.md)
@@ -81,3 +84,12 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Cloud Adoption Framework](./09-governance/cloud-adoption-framework.md)
 - [Well-Architected Framework](./09-governance/well-architected-framework.md)
 - [Cost Governance](./09-governance/cost-governance.md)
+- [Infrastructure as Code](./09-governance/infrastructure-as-code.md)
+
+### 10. Application Architecture
+- [Application Architecture Design](./10-application-architecture/application-architecture.md)
+- [Application Configuration Management](./10-application-architecture/application-configuration.md)
+- [Automated Application Deployment](./10-application-architecture/automated-deployment.md)
+
+### 11. Migrations
+- [Migration Design](./11-migrations/migration-design.md)

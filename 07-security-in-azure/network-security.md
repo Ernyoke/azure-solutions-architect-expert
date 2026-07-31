@@ -32,6 +32,7 @@
 - **Azure Firewall Manager**: central policy and route management across multiple firewalls/hub VNets
 - Tiers: **Standard** vs **Premium** (TLS inspection, IDPS, URL filtering, web categories)
 - Typically deployed in the **hub** VNet of a hub-and-spoke topology
+- See [Azure Firewall](./azure-firewall.md) for SKU selection, rule processing, routing and policy design
 
 ## Web Application Firewall (WAF)
 
