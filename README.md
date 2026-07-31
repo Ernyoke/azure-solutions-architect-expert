@@ -28,6 +28,7 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Load Balancer](./02-azure-networking/load-balancer.md)
 - [Application Gateway](./02-azure-networking/application-gateway.md)
 - [VPN Gateway](./02-azure-networking/vpn-gateway.md)
+- [Azure ExpressRoute](./02-azure-networking/expressroute.md)
 - [API Management](./02-azure-networking/api-management.md)
 
 ### 03. Azure Data Services
@@ -38,6 +39,9 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Cosmos DB](./03-azure-data-services/cosmosdb.md)
 - [Azure Redis](./03-azure-data-services/azure-redis.md)
 - [Azure Storage](./03-azure-data-services/azure-storage.md)
+- [Azure Data Factory](./03-azure-data-services/azure-data-factory.md)
+- [Azure Synapse Analytics](./03-azure-data-services/azure-synapse.md)
+- [Azure Databricks](./03-azure-data-services/azure-databrics.md)
 
 ### 04. Messaging in Azure
 - [Event Grid](./04-messaging-in-azure/event-grid.md)
@@ -58,6 +62,10 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 ### 07. Security in Azure
 - [Network Security](./07-security-in-azure/network-security.md)
 - [VM Security](./07-security-in-azure/vm-security.md)
+- [App Service Security](./07-security-in-azure/app-service-security.md)
+- [Database Security](./07-security-in-azure/database-security.md)
+- [Microsoft Defender for Cloud](./07-security-in-azure/defender.md)
+- [Azure Key Vault](./07-security-in-azure/key-vault.md)
 
 ### 08. Disaster Recovery
 - [Disaster Recovery Concepts](./08-disaster-recovery/dr-concepts.md)
