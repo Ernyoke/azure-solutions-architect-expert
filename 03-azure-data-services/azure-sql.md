@@ -197,6 +197,66 @@ flowchart LR
 - Supports In-Memory OLTP and read scale-out
 - SLA: 99.99%
 
+## Failover Options
+
+- Failover protects against three different failure scopes: node/instance failure, **zone** outage, and **region** outage
+- Choose the option by the failure you must survive, then by the required **RPO** (data loss) and **RTO** (downtime)
+
+### Local High Availability (in-region, automatic)
+
+- Built into every tier - no configuration and no extra cost, handled by the service fabric
+- **General Purpose / Standard / Basic**: single compute replica with remote storage; on failure a new compute node attaches to the same storage
+    - No data loss (RPO = 0), but failover takes longer because the node must be re-provisioned
+- **Business Critical / Premium**: Always On availability group with 3 synchronous replicas on local SSD
+    - **RPO = 0** (no data loss) and the fastest failover, because a secondary is already online
+- **Hyperscale**: compute is decoupled from page servers and the log service; add **high-availability secondary replicas** (up to 4) to speed up failover
+    - Without HA secondaries, failover requires a new primary compute node to warm up
+
+### Zone Redundancy (survives an availability zone outage)
+
+- Opt-in setting that spreads replicas across **availability zones** in the same region; must be enabled at creation or configured later where supported
+- Supported by General Purpose, Business Critical / Premium, and Hyperscale (Hyperscale requires HA secondary replicas)
+- Not available in every region, and requires the region to have availability zones
+- Failover is automatic and transparent to the application - the connection string does not change
+- Raises the SLA to **99.995%** for Business Critical / Premium zone-redundant configurations
+- Cheapest option that gives **zero data loss + zone resilience** -> Business Critical / Premium with zone redundancy
+
+### Active Geo-Replication (cross-region, Azure SQL Database only)
+
+- Creates up to **4 readable secondary databases** in the same or different regions
+- Replication is **asynchronous** -> small potential data loss; **RPO ≈ 5 seconds**, **RTO ≈ 30 seconds**
+- Failover is **manual** (initiated by the application or an administrator)
+- Secondaries are readable, so they can also offload read-only reporting workloads
+- Each secondary has its own connection endpoint -> the application must handle the endpoint change
+- Not supported for Azure SQL Managed Instance
+
+### Auto-Failover Groups (cross-region, automatic)
+
+- Groups one or more databases (or an entire Managed Instance) and replicates them to a secondary region
+- Provides **listener endpoints** that stay the same after failover:
+    - Read-write listener -> always points to the current primary
+    - Read-only listener -> points to the secondary for read workloads
+- Supports **automatic failover** driven by a configurable **grace period** (default 1 hour) or manual failover
+- Uses asynchronous replication -> **RPO ≈ 5 seconds**, **RTO ≈ 1 hour** with automatic failover policy
+- The only cross-region business-continuity option for **Managed Instance**
+- Preferred over active geo-replication when the application must fail over without a connection string change
+
+### Geo-Restore (cross-region, from backups)
+
+- Restores a database in any region from geo-redundant backups (**GRS/GZRS**)
+- Cheapest disaster recovery option - included with backups, no secondary database to pay for
+- Slowest recovery: **RPO up to 1 hour**, **RTO up to 12 hours**
+- Use when the recovery objectives are relaxed and cost is the primary driver
+
+### Exam Rules of Thumb
+
+- **No data loss required (RPO = 0)** -> synchronous replicas -> Business Critical / Premium (or zone redundancy)
+- **Survive a zone outage at the lowest cost** -> zone-redundant Premium / Business Critical
+- **Survive a region outage with the same connection string** -> auto-failover group
+- **Survive a region outage with readable secondaries and manual control** -> active geo-replication
+- **Managed Instance cross-region DR** -> failover group (active geo-replication is not available)
+- **Cheapest possible DR, relaxed RTO** -> geo-restore from geo-redundant backups
+
 ## Backup Options
 
 - Backups are **automatic** in Azure SQL Database and Managed Instance; there is nothing to schedule
