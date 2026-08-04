@@ -42,6 +42,7 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Azure Storage](./03-azure-data-services/azure-storage.md)
 - [Azure Data Factory](./03-azure-data-services/azure-data-factory.md)
 - [Azure Synapse Analytics](./03-azure-data-services/azure-synapse.md)
+- [Azure Stream Analytics](./03-azure-data-services/azure-stream-analytics.md)
 - [Azure Databricks](./03-azure-data-services/azure-databrics.md)
 
 ### 04. Messaging in Azure
@@ -90,6 +91,8 @@ Study notes for the Microsoft Azure Solutions Architect Expert (AZ-305) certific
 - [Application Architecture Design](./10-application-architecture/application-architecture.md)
 - [Application Configuration Management](./10-application-architecture/application-configuration.md)
 - [Automated Application Deployment](./10-application-architecture/automated-deployment.md)
+- [Azure Logic Apps](./10-application-architecture/logic-apps.md)
+- [Azure Durable Functions](./10-application-architecture/durable-functions.md)
 
 ### 11. Migrations
 - [Migration Design](./11-migrations/migration-design.md)

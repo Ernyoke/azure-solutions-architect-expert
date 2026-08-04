@@ -317,7 +317,55 @@ flowchart LR
 
 ## Which Azure SQL to Choose?
 
+### Deployment Option
+
 - Are we migrating an on-prem SQL with instance-level features? -> Managed Instance
 - Do we need multiple low-utilization DBs? -> Elastic Pool
 - Do we need very large databases (>4 TB) with fast scaling? -> Hyperscale
+- Do we need OS access, a specific SQL Server version, or unsupported features? -> SQL Server on Azure VMs
 - All other cases -> Azure SQL Database
+
+### Which Service Tier (vCore)
+
+- **General Purpose** - default, balanced price/performance; remote storage, single replica
+    - Line-of-business web app backend with moderate, predictable traffic
+    - Dev/test and internal apps where a few milliseconds of extra storage latency is acceptable
+    - Departmental app under 4 TB that needs 99.99% SLA at the lowest vCore cost
+    - Managed Instance migration where the source workload is not latency-sensitive
+- **Business Critical** - low-latency local SSD, 3 replicas, free read-only replica, In-Memory OLTP
+    - High-volume OLTP such as order processing, payments, or trading with strict latency requirements
+    - Mission-critical app that needs the highest SLA (99.995% with zone redundancy)
+    - Reporting queries must be offloaded to the built-in read replica without extra cost
+    - Workload uses memory-optimized tables (In-Memory OLTP)
+- **Hyperscale** - decoupled storage up to 100 TB, snapshot backups, up to 4 read replicas
+    - Database is growing beyond 4 TB or growth is unpredictable (IoT telemetry, logs, historical archive)
+    - Multi-TB database must be backed up or restored in minutes instead of hours
+    - Read-heavy workload needs to scale out to several secondary replicas
+    - Note: Single Database only - not available for Managed Instance or Elastic Pool
+
+### Which Service Tier (DTU)
+
+- **Basic** - lowest cost, small storage, low throughput
+    - Small internal tool, prototype, or rarely used database
+    - Dev/test database where cost matters more than performance
+    - Note: PITR retention limited to 1-7 days
+- **Standard** - balanced price/performance for typical workloads
+    - Departmental or small SaaS app with normal transactional traffic
+    - Web app backend that does not need low-latency local SSD storage
+    - Note: columnstore indexing requires S3 or higher
+- **Premium** - local SSD, built-in replicas, In-Memory OLTP, read scale-out
+    - I/O-intensive, mission-critical OLTP workload that must stay on the DTU model
+    - Equivalent of Business Critical when the organization already standardized on DTU sizing
+
+### Which Compute Tier (vCore)
+
+- **Provisioned** - fixed compute always allocated
+    - Steady, predictable usage such as a production app used during business hours every day
+- **Serverless** - auto-scales and auto-pauses, billed per second of compute used
+    - Intermittent or unpredictable usage: dev/test, demo, seasonal, or rarely queried databases
+    - Note: not available for Managed Instance or Business Critical
+
+### Which Purchasing Model
+
+- **DTU** - simple bundled sizing for small, predictable Azure SQL Database workloads
+- **vCore** - most new production workloads; required for Managed Instance, Hyperscale, and serverless, and needed for Azure Hybrid Benefit and reserved capacity

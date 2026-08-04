@@ -90,7 +90,7 @@
 | Short event-triggered custom code | Azure Functions |
 | Stateful code-first orchestration | Durable Functions |
 | Containerized background/event processing | Container Apps Jobs or event-driven Container Apps |
-| High-volume stream processing | Stream Analytics, Functions or another stream-processing engine |
+| High-volume stream processing | [Stream Analytics](../03-azure-data-services/azure-stream-analytics.md), Functions or another stream-processing engine |
 
 - Logic Apps Consumption is multi-tenant and event-driven; Logic Apps Standard provides single-tenant hosting, multiple workflows per resource and additional networking/control
 - Durable Functions provides orchestrator, activity and entity functions while handling state and replay

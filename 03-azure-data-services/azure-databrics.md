@@ -22,6 +22,7 @@
 ## Pricing Tiers
 
 - Premium SKU:
-    -
+    - Offers full stet of advanced features such as role-based access control, integration with Azure AD
+    - Delta Engine
 - Standard SKU:
     - 

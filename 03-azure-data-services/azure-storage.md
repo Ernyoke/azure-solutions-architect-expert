@@ -199,6 +199,11 @@
         - Examples of usage:
             - Short term backups
             - Data for future processing
+    - Cold:
+        - Recommended for data that is rarely accessed but must remain available online
+        - Retrieval is immediate, with millisecond latency
+        - It has lower storage costs than Cool, but higher access costs
+        - Data must be stored for at least 90 days, otherwise early deletion fees apply
     - Archive:
         - Targeted for data archival
         - Data is stored offline => no SLA
@@ -223,7 +228,6 @@
         - The operation is billed as a read from the source tier
         - Read operation (per 10_000) and data retrieval (per GB) charges of the source tier apply
         - Early deletion charges from any blob moved out of the cool/archive tier may apply as well
-- There is also a **Cold** tier (between Cool and Archive): online access, lower storage cost than Cool, 90-day minimum, higher access cost
 
 ## Azure Blob Storage Pricing
 
@@ -323,6 +327,27 @@
 - The purpose of a CDN is to bring the content of the storage account closer to the consumer
 - Currently storage accounts can use Front Door and Azure CDN to setup replication to the edge locations
 - Azure Front Door is a comprehensive, modern application delivery platform (CDN + WAF + Load Balancer) optimized for dynamic content, APIs, and global application security. Azure CDN is a simpler, specialized service primarily optimized for caching and delivering static content (images, videos, files)
+
+## Azure Table Storage
+
+- Fully managed, schemaless **NoSQL key-value store** for large volumes of structured, non-relational data
+- Available in a Standard general purpose v2 storage account and accessed through REST or client libraries
+- Data model: Storage Account -> Table -> Entity -> Properties
+- Every entity has three system properties:
+    - **PartitionKey**: groups related entities and determines how data is distributed
+    - **RowKey**: uniquely identifies an entity within a partition
+    - **Timestamp**: maintained by the service and records when the entity was last modified
+- `PartitionKey` + `RowKey` form the entity's unique composite key and are the only indexed properties
+- Design keys around query patterns:
+    - Point queries using both keys are the most efficient
+    - Queries with only `PartitionKey` scan one partition
+    - Queries without `PartitionKey` require a table scan
+- Transactions are supported only for entities in the **same partition**, with up to 100 operations and a 4 MiB batch limit
+- Uses ETags and optimistic concurrency to prevent lost updates
+- Maximum entity size is 1 MiB; there are no joins, foreign keys or secondary indexes
+- Supports encryption at rest, HTTPS, Shared Key, SAS and Microsoft Entra ID with Azure RBAC
+- Common use cases: user profiles, device metadata, address books and other high-volume datasets with simple access patterns
+- Choose **Azure Table Storage** for low-cost, simple key-value workloads; choose **Azure Cosmos DB for Table** when we need global distribution, lower latency, automatic secondary indexes or higher availability SLAs
 
 ## Azure Files
 

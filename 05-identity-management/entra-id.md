@@ -299,6 +299,31 @@
 - **Provisioning logs** record identity synchronization and application provisioning activity
 - **Terms of use** records user acceptance and can be required by Conditional Access
 
+## Feature Selection Examples
+
+| Requirement / example | Use | Why |
+|---|---|---|
+| Require MFA for everyone in a small tenant with no per-user exceptions | **Security Defaults** | Free, preconfigured baseline protection; use Conditional Access when rules must vary |
+| Require phishing-resistant MFA for admins, block access by country, or require compliant devices | **Conditional Access** | Combines user, app, location, device, and authentication signals into access policies |
+| Block or remediate a sign-in with leaked credentials or impossible travel | **Identity Protection + risk-based Conditional Access** | Uses user and sign-in risk; requires P2 |
+| Give an administrator the Global Administrator role for two hours after approval and MFA | **PIM** | Provides eligible, just-in-time, audited privileged role activation instead of standing access |
+| Ask managers every quarter whether employees still need access to an application | **Access Reviews** | Periodically recertifies and can automatically remove stale access |
+| Let a contractor request a project bundle containing a group, app, and SharePoint site, then remove it after 90 days | **Entitlement Management** | Packages resources with approval, expiration, and review policies |
+| Disable a departing employee and remove group memberships automatically | **Lifecycle Workflows** | Automates joiner, mover, and leaver identity tasks |
+| Give a partner access to Teams or an internal application using the partner's own credentials | **External ID B2B collaboration** | Creates a guest in the workforce tenant while authentication remains with the home identity provider |
+| Add approval and automatic expiration to partner access | **B2B + Entitlement Management** | B2B supplies the guest identity; entitlement management governs its access lifecycle |
+| Add sign-up and sign-in for consumers of a public application | **External ID in an external tenant** | Customer identities are isolated from the employee workforce tenant |
+| Publish an on-premises HR web application without opening inbound firewall ports | **Application Proxy** | Adds Entra preauthentication, SSO, MFA, and Conditional Access through outbound connectors |
+| Synchronize users from several disconnected AD DS forests with simple requirements | **Cloud Sync** | Lightweight cloud-managed agents suit multi-forest and distributed environments |
+| Synchronize complex object types or use advanced hybrid synchronization rules | **Connect Sync** | Provides the broader synchronization feature set through a dedicated server |
+| Let an Azure Function read Key Vault without storing a credential | **Managed identity** | Azure manages the workload identity and credential lifecycle |
+| Let GitHub Actions deploy to Azure without a client secret | **Workload identity federation** | Exchanges a trusted OIDC token for an Entra token without storing credentials |
+| Configure redirect URIs, API scopes, or credentials for an application being developed | **App registration** | Defines the application's identity and protocol settings |
+| Assign users, configure SAML SSO, provision accounts, or apply Conditional Access to a SaaS app | **Enterprise application** | Configures the application's service principal inside the tenant |
+| Assign a team permission to manage resources in one resource group | **Azure RBAC** | Authorizes Azure resource operations at a management group, subscription, resource group, or resource scope |
+| Delegate password resets for users in one business unit | **Entra role scoped to an administrative unit** | Entra roles govern directory tasks; the administrative unit limits the managed identity objects |
+| Domain-join Azure VMs for a legacy app that requires LDAP and Kerberos without managing domain controllers | **Entra Domain Services** | Supplies managed legacy domain protocols; Entra ID alone does not provide LDAP, Kerberos, or Group Policy |
+
 ## Identity Design Decisions
 
 - **Employees and administrators**: use workforce Entra ID, phishing-resistant MFA, Conditional Access, least privilege, and PIM
